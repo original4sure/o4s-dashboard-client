@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "o4s-ui": "git+https://github.com/original4sure/o4s-ui.git",
+    "o4s-ui": "^0.0.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
     "vuex": "^4.1.0"

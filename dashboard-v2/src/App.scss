@@ -1,0 +1,15 @@
+.root-layout {
+  display: grid;
+  grid-template-columns: 220px auto;
+  height: 100vh;
+  width: 100vw;
+}
+
+.side-menu {
+  background: var(--primary-50);
+
+  padding: 12px 10px;
+}
+
+.root-container {
+}
