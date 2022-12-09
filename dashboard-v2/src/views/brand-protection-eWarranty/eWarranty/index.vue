@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     Parent E warranty
   </div>
@@ -11,4 +11,4 @@
 function log() {
   console.log(msg)
 }
-</script>
+</script> -->
