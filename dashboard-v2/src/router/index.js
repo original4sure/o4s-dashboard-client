@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createRouter, createWebHistory } from "vue-router";
 import { createRouteFromMenu } from "o4s-ui/utils";
-import menu from "../menu/menu";
+import menu from "../menu";
 const create_router = createRouteFromMenu(menu);
 
 const router = createRouter({
