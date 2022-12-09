@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-4 px-8">
+  <div class="flex flex-col gap-4 pb-8 px-8">
     <div class="flex flex-row gap-4 items-center">
       <OButton
         icon="pi pi-arrow-left"
@@ -14,14 +14,17 @@
 
     <div class="header flex flex-row justify-between">
       <div>
-        <div>
-          You can accept or reject the warranty based on the date provided by
-          the customer
-        </div>
-        <div>
-          All the basic details and product details are listed below, review all
-          the details before approving the e-warranty requests of a user.
-        </div>
+        <O4SText
+          oType="lg-medium"
+          oLabel="You can accept or reject the warranty based on the date provided by
+          the customer"
+        />
+        <br />
+        <O4SText
+          oType="sm-normal"
+          oLabel=" All the basic details and product details are listed below, review all
+          the details before approving the e-warranty requests of a user."
+        />
       </div>
 
       <div class="flex flex-row gap-4">
@@ -45,7 +48,7 @@
           :key="label"
         >
           <O4SInputText
-            oLabel="label"
+            :oLabel="label"
             :value="value"
             :disabled="true"
             oRightIcon="pi pi-question-circle"
@@ -65,7 +68,7 @@
           :key="label"
         >
           <O4SInputText
-            oLabel="label"
+            :oLabel="label"
             :value="value"
             :disabled="true"
             oRightIcon="pi pi-question-circle"

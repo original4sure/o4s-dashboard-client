@@ -49,6 +49,10 @@ export default {
         value: "Text",
       },
       {
+        label: "Product ID",
+        value: "Text",
+      },
+      {
         label: "Level",
         value: "Text",
       },
