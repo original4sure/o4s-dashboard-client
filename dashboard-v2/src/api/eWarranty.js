@@ -17,10 +17,10 @@ const fetchEWarrantyList = async () => {
     }
 }
 
-const fetchWarranty = async () => {
+const fetchWarranty = async (warrantyCode) => {
     try {
         console.log("L4")
-        const fetchWarrantyUrl = `/consumer/warranty?code=F80F3435`
+        const fetchWarrantyUrl = `/consumer/warranty?code=${warrantyCode}`
         const eWarranty = await httpClient.get(fetchWarrantyUrl)
         console.log("L5", eWarranty)
         return eWarranty

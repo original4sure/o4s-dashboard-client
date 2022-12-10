@@ -8,12 +8,11 @@ export default {
     const router = useRouter();
     const store = useEWarrantyStore();
 
-    function handleRequestDetails() {
-      router.push("/brand-protection-eWarranty/eWarranty/form");
+    function handleRequestDetails(warrantyCode) {
+      router.push('/brand-protection-eWarranty/eWarranty/form/' + warrantyCode);
     }
 
     onMounted(() => {
-      store.fetchWarranty();
       store.fetchEWarrantyRequests();
     });
 

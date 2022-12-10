@@ -12,10 +12,10 @@
         >
           <template #body="{ data }">
             <div>
-              <O4SText oType="lg-normal" :oLabel="data.customerName" />
+              <O4SText oType="md-normal" :oLabel="data.customerName" />
             </div>
             <div>
-              {{ data.mobileNumber }}
+              <O4SText oType="md-normal" :oLabel="data.mobileNumber" />
             </div>
           </template>
         </OColumn>
@@ -48,11 +48,10 @@
         ></OColumn>
         <OColumn
           field="lastUpdatedOn"
-          :sortable="true"
           header="Last Updated"
           class=""
         ></OColumn>
-        <OColumn field="status" header="Status" :sortable="true" class="">
+        <OColumn field="status" header="Status" class="">
           <template #body="{ data }">
             <div
               class="flex justify-center items-center py-0.5 px-2"
@@ -67,8 +66,8 @@
           </template>
         </OColumn>
         <OColumn>
-          <template #body>
-            <i class="pi pi-eye" @click="handleRequestDetails" />
+          <template #body="{data}">
+            <i class="pi pi-eye" @click="handleRequestDetails(data.warrantyCode)" />
           </template>
         </OColumn>
       </ODataTable>

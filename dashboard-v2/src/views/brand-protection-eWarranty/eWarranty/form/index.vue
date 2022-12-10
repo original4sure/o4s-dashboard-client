@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-4 pb-8 px-8">
+  <div class="flex flex-col gap-4 pb-10 px-8">
     <div class="flex flex-row gap-4 items-center">
       <OButton
         icon="pi pi-arrow-left"

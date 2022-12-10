@@ -6,6 +6,69 @@ import _ from "lodash"
 export const useEWarrantyStore = defineStore("eWarranty", () => {
   let warrantyList = ref([]);
 
+  let basicDetailData = ref([
+    {
+      label: "Mobile",
+      value: "Text",
+    },
+    {
+      label: "Customer",
+      value: "Text",
+    },
+    {
+      label: "SKU",
+      value: "Text",
+    },
+    {
+      label: "Purchased From",
+      value: "Text",
+    },
+    {
+      label: "Requested On",
+      value: "Text",
+    },
+    {
+      label: "Purchased On",
+      value: "Text",
+    },
+    {
+      label: "Invoice Number",
+      value: "Text",
+    },
+  ]);
+
+  let productDetailData = ref([
+    {
+      label: "Serial Number",
+      value: "Text",
+    },
+    {
+      label: "Batch Number",
+      value: "Text",
+    },
+    {
+      label: "Product ID",
+      value: "Text",
+    },
+    {
+      label: "Level",
+      value: "Text",
+    },
+    {
+      label: "Manufacturing Plant",
+      value: "Text",
+    },
+    {
+      label: "Manufacturing Date",
+      value: "Text",
+    },
+    {
+      label: "Ownership",
+      value: "Text",
+    },
+  ]);
+
+
   const fetchEWarrantyRequests = async function () {
     console.log("warranty list Api Called");
     // const result = await eWarrantyApi.fetchEWarrantyList()
@@ -90,9 +153,80 @@ export const useEWarrantyStore = defineStore("eWarranty", () => {
     console.log(warrantyList);
   };
 
-  const fetchWarranty = async function () {
-    await eWarrantyApi.fetchWarranty();
+  const fetchWarranty = async function (payload) {
+    const response = await eWarrantyApi.fetchWarranty(payload);
+
+    console.log("response", response)
+    let result = response.data.data
+
+    basicDetailData.value = [
+      {
+        label: "Mobile",
+        value: result.user.phoneNumber,
+      },
+      {
+        label: "Customer",
+        value: result.warrantyData.name,
+      },
+      {
+        label: "SKU",
+        value: result.sku.name,
+      },
+      {
+        label: "Purchased From",
+        value: result.warrantyData.purchasedFrom,
+      },
+      {
+        label: "Requested On",
+        value: result.activationRequestDate,
+      },
+      {
+        label: "Purchased On",
+        value: result.warrantyData.purchasedOn,
+      },
+      {
+        label: "Invoice Number",
+        value: result.warrantyData.invoice,
+      },
+    ]
+
+    productDetailData.value = [
+      {
+        label: "Serial Number",
+        value: "Text",
+      },
+      {
+        label: "Batch Number",
+        value: "Text",
+      },
+      {
+        label: "Product ID",
+        value: result.productId,
+      },
+      {
+        label: "Level",
+        value: "Text",
+      },
+      {
+        label: "Manufacturing Plant",
+        value: "Text",
+      },
+      {
+        label: "Manufacturing Date",
+        value: "Text",
+      },
+      {
+        label: "Ownership",
+        value: "Text",
+      },
+    ]
+
+
+    console.log(result)
   };
 
-  return { warrantyList, fetchEWarrantyRequests, fetchWarranty };
+  return { warrantyList, basicDetailData, productDetailData, fetchEWarrantyRequests, fetchWarranty };
 });
+
+
+

@@ -19,24 +19,18 @@ export default {
       //component: () => import("@/views/brand-protection-eWarranty/eWarranty/index.vue"),
       children: [
         {
-          name: "eWarrantyDashboard",
+          name: "list",
           path: "/list",
           exact: true,
           visible: false,
-          component: () =>
-            import(
-              "@/views/brand-protection-eWarranty/eWarranty/list/index.vue"
-            ),
+          component: () => import("@/views/brand-protection-eWarranty/eWarranty/list/index.vue"),
         },
         {
-          name: "eWarrantyForm",
-          path: "/form",
+          name: "form",
+          path: "/form/:warrantyCode",
           exact: true,
           visible: false,
-          component: () =>
-            import(
-              "@/views/brand-protection-eWarranty/eWarranty/form/index.vue"
-            ),
+          component: () => import("@/views/brand-protection-eWarranty/eWarranty/form/index.vue"),
         },
       ],
     },
