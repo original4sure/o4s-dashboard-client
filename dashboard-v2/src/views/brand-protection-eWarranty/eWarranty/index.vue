@@ -9,6 +9,5 @@
 // variable
 // functions
 function log() {
-  console.log(msg)
 }
 </script> -->

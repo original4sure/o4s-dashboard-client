@@ -70,7 +70,6 @@ export const useEWarrantyStore = defineStore("eWarranty", () => {
 
 
   const fetchEWarrantyRequests = async function () {
-    console.log("warranty list Api Called");
     // const result = await eWarrantyApi.fetchEWarrantyList()
     const result = {
       hasMore: true,
@@ -135,8 +134,6 @@ export const useEWarrantyStore = defineStore("eWarranty", () => {
       totalCount: 3,
     };
 
-    console.log(warrantyList);
-
     warrantyList.value = result.list.map((item) => {
       return {
         ...item,
@@ -150,13 +147,11 @@ export const useEWarrantyStore = defineStore("eWarranty", () => {
       };
     });
 
-    console.log(warrantyList);
   };
 
   const fetchWarranty = async function (payload) {
     const response = await eWarrantyApi.fetchWarranty(payload);
 
-    console.log("response", response)
     let result = response.data.data
 
     basicDetailData.value = [
@@ -221,8 +216,6 @@ export const useEWarrantyStore = defineStore("eWarranty", () => {
       },
     ]
 
-
-    console.log(result)
   };
 
   return { warrantyList, basicDetailData, productDetailData, fetchEWarrantyRequests, fetchWarranty };

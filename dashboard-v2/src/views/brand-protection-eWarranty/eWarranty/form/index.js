@@ -14,15 +14,10 @@ export default {
     }
 
     onMounted(() => {
-      console.log(route.params.warrantyCode)
       store.fetchWarranty(route.params.warrantyCode);
         //emit("update:basicDetail", data.value);
-      });
+    });
 
-    // <ODivider />
-    // <BasicDetail
-    //   v-model:basicDetail="skuData.basicDetail"
-    // />
     return { redirectTolistScreen, 
       basicDetailData : computed(()=> store.basicDetailData), 
       productDetailData: computed(()=> store.productDetailData)  
