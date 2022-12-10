@@ -4,7 +4,7 @@
       <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
     </div>
     <div class="px-4 h-full">
-      <ODataTable :value="skus" :paginator="true" :rows="10">
+      <ODataTable :value="warrantyList" :paginator="true" :rows="10">
         <OColumn
           field="customerName"
           :sortable="true"
@@ -12,7 +12,7 @@
         >
           <template #body="{ data }">
             <div>
-              {{ data.customerName }}
+              <O4SText oType="lg-normal" :oLabel="data.customerName" />
             </div>
             <div>
               {{ data.mobileNumber }}
@@ -38,28 +38,28 @@
           field="purchaseFrom"
           :sortable="true"
           header="Purchase From"
-          class="w-48"
+          class=""
         ></OColumn>
         <OColumn
           field="purchasedOn"
           :sortable="true"
           header="Purchase On"
-          class="w-48"
+          class=""
         ></OColumn>
         <OColumn
           field="lastUpdatedOn"
           :sortable="true"
           header="Last Updated"
-          class="w-48"
+          class=""
         ></OColumn>
-        <OColumn field="status" header="Status" :sortable="true" class="w-48">
+        <OColumn field="status" header="Status" :sortable="true" class="">
           <template #body="{ data }">
             <div
               class="flex justify-center items-center py-0.5 px-2"
               :class="{
-                badgeApproved: data.status === 'approved',
-                badgeRejected: data.status === 'rejected',
-                badgePending: data.status === 'pending',
+                badgeApproved: data.status === 'Approved',
+                badgeRejected: data.status === 'Rejected',
+                badgePending: data.status === 'Pending',
               }"
             >
               {{ data.status }}
