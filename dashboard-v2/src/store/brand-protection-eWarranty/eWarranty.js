@@ -3,72 +3,48 @@ import { reactive, ref, computed } from "vue";
 import eWarrantyApi from "../../api/eWarranty";
 import _ from "lodash"
 
-export const useEWarrantyStore = defineStore("eWarranty", () => {
+
+//Store for warranty list
+export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
+
+  //states
   let warrantyList = ref([]);
+  let rowPerPage = ref(10);
+  let totalCount = ref(0);
 
-  let basicDetailData = ref([
-    {
-      label: "Mobile",
-      value: "Text",
-    },
-    {
-      label: "Customer",
-      value: "Text",
-    },
-    {
-      label: "SKU",
-      value: "Text",
-    },
-    {
-      label: "Purchased From",
-      value: "Text",
-    },
-    {
-      label: "Requested On",
-      value: "Text",
-    },
-    {
-      label: "Purchased On",
-      value: "Text",
-    },
-    {
-      label: "Invoice Number",
-      value: "Text",
-    },
-  ]);
+  //computed properties
+  let totalPages = computed(()=> Math.ceil(totalCount.value/rowPerPage.value));
 
-  let productDetailData = ref([
-    {
-      label: "Serial Number",
-      value: "Text",
-    },
-    {
-      label: "Batch Number",
-      value: "Text",
-    },
-    {
-      label: "Product ID",
-      value: "Text",
-    },
-    {
-      label: "Level",
-      value: "Text",
-    },
-    {
-      label: "Manufacturing Plant",
-      value: "Text",
-    },
-    {
-      label: "Manufacturing Date",
-      value: "Text",
-    },
-    {
-      label: "Ownership",
-      value: "Text",
-    },
-  ]);
+  //utility function
+  const dateFormatter = function(date){
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
+    const d = new Date(date);
 
+    let day = d.getDate();
+    let month = months[d.getMonth()];
+    let year = d.getFullYear();
+
+    return month + ' ' + day + ', ' + year
+
+  }
+
+  const timeFormatter = function(date){
+    const d = new Date(date);
+
+    let hour = d.getHours() > 12 ? d.getHours() - 12 : d.getHours();
+
+    //adding leading zero for hour less than 10
+    hour = hour.toString().length < 2 ? '0' + hour.toString() : hour.toString()
+
+    //getting am or pm
+    let amPm = d.getHours() > 12 ? 'pm' : 'am'
+
+    return hour + ':' + d.getMinutes() + ' ' + amPm
+
+  }
+
+  //api function
   const fetchEWarrantyRequests = async function () {
     // const result = await eWarrantyApi.fetchEWarrantyList()
     const result = {
@@ -141,14 +117,88 @@ export const useEWarrantyStore = defineStore("eWarranty", () => {
         inVoiceNo: "KDJHF988S",
         mobileNumber: item.userPhoneNumber,
         purchaseFrom: "DN SUPERCOVER BRILLIANT WHITE 20L",
-        purchasedOn: item.purchaseDate,
-        lastUpdatedOn: 1670284800000,
+        purchasedOn: dateFormatter(item.purchaseDate),
+        lastUpdatedOn: dateFormatter(1670284800000) + ' ' + timeFormatter(1670284800000),
         status: _.capitalize(item.status),
       };
     });
 
+    totalCount.value = result.totalCount
+
+    console.log(totalPages.value, totalCount.value)
   };
 
+  return { warrantyList, rowPerPage, totalPages, fetchEWarrantyRequests };
+});
+
+
+//Store for warranty form
+export const useEWarrantyFromStore = defineStore("eWarrantyForm", ()=>{
+
+  //states
+  let basicDetailData = ref([
+    {
+      label: "Mobile",
+      value: "Text",
+    },
+    {
+      label: "Customer",
+      value: "Text",
+    },
+    {
+      label: "SKU",
+      value: "Text",
+    },
+    {
+      label: "Purchased From",
+      value: "Text",
+    },
+    {
+      label: "Requested On",
+      value: "Text",
+    },
+    {
+      label: "Purchased On",
+      value: "Text",
+    },
+    {
+      label: "Invoice Number",
+      value: "Text",
+    },
+  ]);
+
+  let productDetailData = ref([
+    {
+      label: "Serial Number",
+      value: "Text",
+    },
+    {
+      label: "Batch Number",
+      value: "Text",
+    },
+    {
+      label: "Product ID",
+      value: "Text",
+    },
+    {
+      label: "Level",
+      value: "Text",
+    },
+    {
+      label: "Manufacturing Plant",
+      value: "Text",
+    },
+    {
+      label: "Manufacturing Date",
+      value: "Text",
+    },
+    {
+      label: "Ownership",
+      value: "Text",
+    },
+  ]);
+
+  //api function
   const fetchWarranty = async function (payload) {
     const response = await eWarrantyApi.fetchWarranty(payload);
 
@@ -218,7 +268,7 @@ export const useEWarrantyStore = defineStore("eWarranty", () => {
 
   };
 
-  return { warrantyList, basicDetailData, productDetailData, fetchEWarrantyRequests, fetchWarranty };
+  return { basicDetailData, productDetailData, fetchWarranty }
 });
 
 
