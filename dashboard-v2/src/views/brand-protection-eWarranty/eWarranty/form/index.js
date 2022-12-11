@@ -17,9 +17,10 @@ export default {
       store.fetchWarranty(route.params.warrantyCode);
     });
 
-    return { redirectTolistScreen, 
-      basicDetailData : computed(()=> store.basicDetailData), 
-      productDetailData: computed(()=> store.productDetailData)  
+    return {
+      redirectTolistScreen,
+      basicDetailData: computed(() => store.basicDetailData),
+      productDetailData: computed(() => store.productDetailData),
     };
   },
 };
