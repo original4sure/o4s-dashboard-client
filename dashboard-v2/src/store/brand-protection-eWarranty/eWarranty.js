@@ -208,8 +208,12 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
     },
   ]);
 
+  let formLoaded = ref(false)
+
   //api function
   const fetchWarranty = async function (payload) {
+
+    formLoaded.value = false
     const response = await eWarrantyApi.fetchWarranty(payload);
 
     let result = response.data.data;
@@ -275,7 +279,9 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
         value: "Text",
       },
     ];
+
+    formLoaded.value = true
   };
 
-  return { basicDetailData, productDetailData, fetchWarranty };
+  return { basicDetailData, productDetailData, formLoaded, fetchWarranty };
 });

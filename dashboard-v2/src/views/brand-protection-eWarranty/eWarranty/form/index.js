@@ -21,6 +21,7 @@ export default {
       redirectTolistScreen,
       basicDetailData: computed(() => store.basicDetailData),
       productDetailData: computed(() => store.productDetailData),
+      formLoaded: computed(()=> store.formLoaded)
     };
   },
 };
