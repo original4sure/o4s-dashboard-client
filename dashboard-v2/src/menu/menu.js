@@ -1,4 +1,6 @@
-export default [
+import { addDefaultAppMenus } from "o4s-ui/utils";
+
+const menus = [
   {
     name: "App",
     path: "/",
@@ -111,3 +113,5 @@ export default [
     // ],
   },
 ];
+
+export default addDefaultAppMenus(menus);
