@@ -3,11 +3,12 @@ import App from "./App.vue";
 
 import o4s from "o4s-ui";
 import "o4s-ui/style.css";
+import "./styles/style.scss";
 import router from "./router";
-import { createPinia } from 'pinia'
+import { createPinia } from "pinia";
 
 const app = createApp(App);
-const pinia = createPinia()
+const pinia = createPinia();
 
 app.use(router);
 app.use(pinia);
