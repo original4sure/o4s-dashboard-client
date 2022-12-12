@@ -7,6 +7,6 @@ let config = {
 
 const httpClient = axios.create(config)
 
-httpClient.defaults.headers.common['Authorization'] = 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3Mzg0NDMsIm5iZiI6MTY3MDczODQ0MywianRpIjoiZmIyZDA5ZTAtYTZjYi00NTdlLTg4NGUtZjdlNzkyZjZlNWE3IiwiZXhwIjoxNjcwNzgxNjQzLCJpZGVudGl0eSI6Im5vdmEuYW5hbHlzdEBvNHMuaW8iLCJmcmVzaCI6dHJ1ZSwidHlwZSI6ImFjY2VzcyJ9.Z366l97XILa_SvKhrfbTlo-lgvkjGG0XtLMEFBOvTak'
+httpClient.defaults.headers.common['Authorization'] = 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA4MjMxNTMsIm5iZiI6MTY3MDgyMzE1MywianRpIjoiZDU5ZWI5ZWEtYTBlZi00NDEzLTgwNjYtM2Q5MzIyMzUzMzQ4IiwiZXhwIjoxNjcwODY2MzUzLCJpZGVudGl0eSI6Im5vdmEuYW5hbHlzdEBvNHMuaW8iLCJmcmVzaCI6dHJ1ZSwidHlwZSI6ImFjY2VzcyJ9.Fh2C7qkToCzaRe1UaZPUGYnk2Zc67ZHNhj1niP37eqU'
 
 export { httpClient }
