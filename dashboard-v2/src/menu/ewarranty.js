@@ -13,24 +13,34 @@ export default {
     //   icon: "pi-circle",
     // },
     {
-      name: "eWarranty",
+      name: "BrandProtectionAndEWarranty-eWarranty",
+      label: "E-Warranty",
       path: "/eWarranty",
       exact: true,
+      expandMenuIcon: false,
       //component: () => import("@/views/brand-protection-eWarranty/eWarranty/index.vue"),
       children: [
         {
-          name: "list",
+          name: "BrandProtectionAndEWarranty-eWarranty-list",
+          label: "List",
           path: "/list",
           exact: true,
           visible: false,
-          component: () => import("@/views/brand-protection-eWarranty/eWarranty/list/index.vue"),
+          component: () =>
+            import(
+              "@/views/brand-protection-eWarranty/eWarranty/list/index.vue"
+            ),
         },
         {
-          name: "form",
+          name: "BrandProtectionAndEWarranty-eWarranty-form",
+          label: "Form",
           path: "/form/:warrantyCode",
           exact: true,
           visible: false,
-          component: () => import("@/views/brand-protection-eWarranty/eWarranty/form/index.vue"),
+          component: () =>
+            import(
+              "@/views/brand-protection-eWarranty/eWarranty/form/index.vue"
+            ),
         },
       ],
     },

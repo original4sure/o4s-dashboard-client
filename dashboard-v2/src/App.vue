@@ -3,7 +3,7 @@ import { ref, reactive, watch } from "vue";
 import { useRoute } from "vue-router";
 import { RouterView } from "vue-router";
 import { O4SAppMenu } from "o4s-ui";
-import menuobj from "./menu/menu";
+import menuobj from "./menu";
 const menu = reactive(menuobj);
 const appMenu = ref(null);
 
