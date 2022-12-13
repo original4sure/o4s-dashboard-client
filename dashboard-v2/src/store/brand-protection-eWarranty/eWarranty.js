@@ -2,12 +2,13 @@ import { defineStore } from "pinia";
 import { reactive, ref, computed } from "vue";
 import eWarrantyApi from "../../api/eWarranty";
 import _ from "lodash";
+import { DateTime } from "luxon";
 
 //Store for warranty list
 export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   //states
   let warrantyList = ref([]);
-  let rowPerPage = ref(2);
+  let rowPerPage = ref(5);
   let totalCount = ref(0);
   let listloading = ref(false);
   let pageNumber = ref(0);
@@ -16,46 +17,6 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   let totalPages = computed(() =>
     Math.ceil(totalCount.value / rowPerPage.value)
   );
-
-  //utility function
-  const dateFormatter = function (date) {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "July",
-      "Aug",
-      "Sept",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    const d = new Date(date);
-
-    let day = d.getDate();
-    let month = months[d.getMonth()];
-    let year = d.getFullYear();
-
-    return month + " " + day + ", " + year;
-  };
-
-  const timeFormatter = function (date) {
-    const d = new Date(date);
-
-    let hour = d.getHours() > 12 ? d.getHours() - 12 : d.getHours();
-
-    //adding leading zero for hour less than 10
-    hour = hour.toString().length < 2 ? "0" + hour.toString() : hour.toString();
-
-    //getting am or pm
-    let amPm = d.getHours() > 12 ? "pm" : "am";
-
-    return hour + ":" + d.getMinutes() + " " + amPm;
-  };
 
   //api function
   const fetchEWarrantyRequests = async function (status) {
@@ -71,21 +32,15 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
 
     warrantyList.value = result.list.map((item) => {
       return {
-        ...item,
-        customerName: "John Doe",
-        inVoiceNo: "KDJHF988S",
+        customerName: item.userName,
+        inVoiceNo: item.invoiceNumber,
         mobileNumber: item.userPhoneNumber,
-        purchaseFrom: "DN SUPERCOVER BRILLIANT WHITE 20L",
-        purchasedOn: dateFormatter(item.purchaseDate),
-        lastUpdatedOn:
-          dateFormatter(1670284800000) + " " + timeFormatter(1670284800000),
+        purchaseFrom: item.purchasedFrom,
+        purchasedOn: DateTime.fromMillis(item.purchaseDate).toFormat('LLL dd, yyyy'),
+        lastUpdatedOn: DateTime.fromMillis(item.lastUpdatedOn).toLocaleString(DateTime.DATETIME_MED),
         status: _.capitalize(item.status),
-        sku: {
-          code: "test-poc-spd_l2",
-          isActive: true,
-          name: "test-POC-SPD_L2",
-          packagingLevel: 2,
-        },
+        warrantyCode: item.warrantyCode,
+        sku: item.sku
       };
     });
     totalCount.value = result.totalCount;
@@ -121,12 +76,22 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       sku,
       userName,
       purchasedFrom,
-      purchasedOn,
+      purchaseDate,
       userPhoneNumber,
       activationRequestDate,
       productId,
       invoiceNumber,
       invoiceLink,
+      manufacturingDate,
+      productDetails: {
+        packagingLevel,
+        serialNo,
+        facilityName,
+        batchId,
+        ownership: {
+          owner
+        }
+      }
     } = response?.data?.data || {};
 
     basicDetailData.value = [
@@ -148,11 +113,11 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Requested On",
-        value: activationRequestDate,
+        value: DateTime.fromMillis(activationRequestDate).toFormat('dd LLL, yyyy') ,
       },
       {
         label: "Purchased On",
-        value: purchasedOn,
+        value: DateTime.fromMillis(purchaseDate).toFormat('dd LLL, yyyy'),
       },
       {
         label: "Invoice Number",
@@ -163,11 +128,11 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
     productDetailData.value = [
       {
         label: "Serial Number",
-        value: "Text",
+        value: serialNo,
       },
       {
         label: "Batch Number",
-        value: "Text",
+        value: batchId,
       },
       {
         label: "Product ID",
@@ -175,19 +140,19 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Level",
-        value: "Text",
+        value: packagingLevel,
       },
       {
         label: "Manufacturing Plant",
-        value: "Text",
+        value: facilityName,
       },
       {
         label: "Manufacturing Date",
-        value: "Text",
+        value: manufacturingDate ? DateTime.fromMillis(manufacturingDate).toFormat('dd LLL, yyyy') : 'NA',
       },
       {
         label: "Ownership",
-        value: "Text",
+        value: owner.name,
       },
     ];
 

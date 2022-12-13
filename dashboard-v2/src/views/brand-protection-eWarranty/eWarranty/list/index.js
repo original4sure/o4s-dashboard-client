@@ -21,8 +21,10 @@ export default {
     } 
 
     function onPage(event) {
+      console.log(event)
       store.$patch(state => {
         state.pageNumber = event.page
+        state.rowPerPage = event.rows
       })
       store.fetchEWarrantyRequests(selectedStatus.value.value);
     }

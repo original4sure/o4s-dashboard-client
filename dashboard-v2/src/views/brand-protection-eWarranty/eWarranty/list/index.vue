@@ -7,7 +7,7 @@
       <OButtonGroup v-model="selectedStatus" :options="options"/>
     </div>
     <div class="h-full">
-      <ODataTable :value="warrantyList" :lazy="true" :loading="listloading" :paginator="true" :rows="rowPerPage" :totalRecords="totalCount" @page="onPage($event)">
+      <ODataTable :value="warrantyList" :lazy="true" :loading="listloading" :paginator="true" :rows="rowPerPage" :totalRecords="totalCount" @page="onPage($event)" paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5, 10, 15]">
         <OColumn
           field="customerName"
           :sortable="true"
