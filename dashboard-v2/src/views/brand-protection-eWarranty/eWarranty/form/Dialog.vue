@@ -1,28 +1,30 @@
 <template>
   <div>
-    <OButton label="Show Dialog" @click="openBasic" />
-    <ODialog v-model:visible="display" header=" ">
-      <div>
-        <O4SText oLabel="E-warranty has been approved!" oType="lg-medium" />
+    <ODialog
+      v-model:visible="display"
+      header=" "
+      :closable="false"
+      :draggable="false"
+    >
+      <div class="grid justify-center">
+        <O4SText :oLabel="`E-warranty has been ${status}!`" oType="lg-medium" />
         <br />
-        <OButton class="mt-1" label="Back to E-Warranty Table" @click="" />
+        <OButton
+          :oColor="`${status == 'approved' ? 'primary' : 'error'}`"
+          class="mt-1"
+          label="Back to E-Warranty Table"
+          @click="redirectTolistScreen"
+        />
       </div>
     </ODialog>
   </div>
 </template>
-<script>
-import { ref } from "vue";
 
-export default {
-  name: "FormDialog",
-  setup() {
-    const display = ref(false);
+<script setup>
+import { computed } from "vue";
 
-    const openBasic = () => {
-      display.value = true;
-    };
-
-    return { openBasic, display };
-  },
-};
+const props = defineProps(["display", "redirectTolistScreen", "status"]);
+const display = computed(() => props.display);
+const status = computed(() => props.status);
+const redirectTolistScreen = computed(() => props.redirectTolistScreen);
 </script>

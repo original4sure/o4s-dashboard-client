@@ -28,8 +28,16 @@
       </div>
 
       <div class="flex flex-row gap-4">
-        <OButton label="Reject" oType="secondary" />
-        <OButton label="Approve" oType="primary" />
+        <OButton
+          label="Reject"
+          oType="secondary"
+          @click="() => openDialog('rejected')"
+        />
+        <OButton
+          label="Approve"
+          oType="primary"
+          @click="() => openDialog('approved')"
+        />
       </div>
     </div>
 
@@ -90,6 +98,11 @@
     <div class="lds-dual-ring"></div>
     <div><O4SText oType="md-normal" oLabel="Fetching Warranty Details" /></div>
   </div>
+  <FormDialog
+    :display="display"
+    :status="status"
+    :redirectTolistScreen="redirectTolistScreen"
+  />
 </template>
 
 <script src="./index.js" />
