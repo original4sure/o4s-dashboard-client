@@ -12,7 +12,6 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   let listloading = ref(false);
   let pageNumber = ref(0);
 
-
   //computed properties
   let totalPages = computed(() =>
     Math.ceil(totalCount.value / rowPerPage.value)
@@ -60,12 +59,15 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
 
   //api function
   const fetchEWarrantyRequests = async function (status) {
+    listloading.value = true;
 
-    listloading.value = true
+    const response = await eWarrantyApi.fetchEWarrantyList(
+      rowPerPage.value,
+      pageNumber.value,
+      status
+    );
 
-    const response = await eWarrantyApi.fetchEWarrantyList(rowPerPage.value, pageNumber.value, status)
-
-    const result = response.data.data
+    const result = response.data.data;
 
     warrantyList.value = result.list.map((item) => {
       return {
@@ -87,122 +89,81 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
       };
     });
     totalCount.value = result.totalCount;
-    listloading.value = false
+    listloading.value = false;
   };
 
-  return { warrantyList, listloading, rowPerPage, totalPages, totalCount, pageNumber, fetchEWarrantyRequests };
+  return {
+    warrantyList,
+    listloading,
+    rowPerPage,
+    totalPages,
+    totalCount,
+    pageNumber,
+    fetchEWarrantyRequests,
+  };
 });
 
 //Store for warranty form
 export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
   //states
-  let basicDetailData = ref([
-    {
-      label: "Mobile",
-      value: "Text",
-    },
-    {
-      label: "Customer",
-      value: "Text",
-    },
-    {
-      label: "SKU",
-      value: "Text",
-    },
-    {
-      label: "Purchased From",
-      value: "Text",
-    },
-    {
-      label: "Requested On",
-      value: "Text",
-    },
-    {
-      label: "Purchased On",
-      value: "Text",
-    },
-    {
-      label: "Invoice Number",
-      value: "Text",
-    },
-  ]);
-
-  let productDetailData = ref([
-    {
-      label: "Serial Number",
-      value: "Text",
-    },
-    {
-      label: "Batch Number",
-      value: "Text",
-    },
-    {
-      label: "Product ID",
-      value: "Text",
-    },
-    {
-      label: "Level",
-      value: "Text",
-    },
-    {
-      label: "Manufacturing Plant",
-      value: "Text",
-    },
-    {
-      label: "Manufacturing Date",
-      value: "Text",
-    },
-    {
-      label: "Ownership",
-      value: "Text",
-    },
-  ]);
-
-  let formLoaded = ref(false)
+  let basicDetailData = ref([]);
+  let productDetailData = ref([]);
+  let formLoaded = ref(false);
+  let data = ref({});
 
   //api function
   const fetchWarranty = async function (payload) {
-
-    formLoaded.value = false
+    formLoaded.value = false;
     const response = await eWarrantyApi.fetchWarranty(payload);
+    data.value = response?.data?.data;
 
-    let result = response.data.data;
+    const {
+      sku,
+      userName,
+      purchasedFrom,
+      purchasedOn,
+      userPhoneNumber,
+      activationRequestDate,
+      productId,
+      invoiceNumber,
+      invoiceLink,
+    } = response?.data?.data || {};
 
     basicDetailData.value = [
       {
         label: "Mobile",
-        value: result.userPhoneNumber,
+        value: userPhoneNumber,
       },
       {
         label: "Customer",
-        value: result.userName,
+        value: userName,
       },
       {
         label: "SKU",
-        value: result.sku.name,
+        value: sku?.name,
       },
       {
         label: "Purchased From",
-        value: result.purchasedFrom,
+        value: purchasedFrom,
       },
       {
         label: "Requested On",
-        value: result.activationRequestDate,
+        value: activationRequestDate,
       },
       {
         label: "Purchased On",
-        value: result.purchasedOn,
+        value: purchasedOn,
       },
       {
         label: "Invoice Number",
-        value: result.invoiceNumber,
+        value: invoiceNumber,
       },
     ];
 
     productDetailData.value = [
       {
         label: "Serial Number",
-        value: result.productDetails.serialNo,
+        value: "Text",
       },
       {
         label: "Batch Number",
@@ -210,11 +171,11 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Product ID",
-        value: result.productId,
+        value: productId,
       },
       {
         label: "Level",
-        value: 'L' + result.productDetails.packagingLevel,
+        value: "Text",
       },
       {
         label: "Manufacturing Plant",
@@ -226,12 +187,18 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Ownership",
-        value: result.productDetails.ownership.owner.name,
+        value: "Text",
       },
     ];
 
-    formLoaded.value = true
+    formLoaded.value = true;
   };
 
-  return { basicDetailData, productDetailData, formLoaded, fetchWarranty };
+  return {
+    basicDetailData,
+    productDetailData,
+    formLoaded,
+    fetchWarranty,
+    data,
+  };
 });
