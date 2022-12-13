@@ -1,10 +1,13 @@
 <template>
-  <div class="flex flex-col gap-4 px-8">
+  <div class="flex flex-col gap-4 px-6">
     <div>
       <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
     </div>
-    <div class="px-4 h-full">
-      <ODataTable :value="warrantyList" :paginator="true" :rows="rowPerPage">
+    <div>
+      <OButtonGroup v-model="selectedStatus" :options="options"/>
+    </div>
+    <div class="h-full">
+      <ODataTable :value="warrantyList" :lazy="true" :loading="listloading" :paginator="true" :rows="rowPerPage" :totalRecords="totalCount" @page="onPage($event)">
         <OColumn
           field="customerName"
           :sortable="true"
@@ -57,7 +60,7 @@
         <OColumn
           field="purchaseFrom"
           :sortable="true"
-          header="Purchase From"
+          header="Purchased From"
           class=""
         >
           <template #body="{ data }">
@@ -71,7 +74,7 @@
         <OColumn
           field="purchasedOn"
           :sortable="true"
-          header="Purchase On"
+          header="Purchased On"
           class=""
         >
           <template #body="{ data }">
@@ -136,6 +139,7 @@
           </template>
         </OColumn>
       </ODataTable>
+      
     </div>
   </div>
 </template>
