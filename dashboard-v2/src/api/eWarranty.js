@@ -1,13 +1,13 @@
 import { httpClient } from '../shared/httpClient'
 
-const fetchEWarrantyList = async () => {
+const fetchEWarrantyList = async (pageSize, pageNumber, status) => {
     try {
-      const fetchEWarrantyListUrl = `/consumer/warranty-list`
+      const fetchEWarrantyListUrl = `/consumer/warranty/list`
       const eWarrantyList = await httpClient.post(fetchEWarrantyListUrl, {
-        "pageNumber": 10,
-        "pageSize": 0,
+        "pageNumber": pageNumber,
+        "pageSize": pageSize,
         "filters": {
-            "status": "APPROVED"
+            "status": status
         }
       })
       return eWarrantyList

@@ -7,8 +7,11 @@ import _ from "lodash";
 export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   //states
   let warrantyList = ref([]);
-  let rowPerPage = ref(10);
+  let rowPerPage = ref(2);
   let totalCount = ref(0);
+  let listloading = ref(false);
+  let pageNumber = ref(0);
+
 
   //computed properties
   let totalPages = computed(() =>
@@ -56,70 +59,13 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   };
 
   //api function
-  const fetchEWarrantyRequests = async function () {
-    // const result = await eWarrantyApi.fetchEWarrantyList()
-    const result = {
-      hasMore: true,
-      length: 3,
-      list: [
-        {
-          activationRequestDate: null,
-          companyCode: "NovaDesiGhee",
-          manufacturingDate: 1670284800000,
-          productId: 32264615275,
-          purchaseDate: 1670284800000,
-          status: "REJECTED",
-          userEmail: null,
-          userPhoneNumber: "+918878999100",
-          warrantyCode: "F80F3435",
-          warrantyEndDate: 1670284800000,
-          sku: {
-            code: "test-poc-spd_l2",
-            isActive: true,
-            name: "test-POC-SPD_L2",
-            packagingLevel: 2,
-          },
-        },
-        {
-          activationRequestDate: null,
-          companyCode: "NovaDesiGhee",
-          manufacturingDate: 1670284800000,
-          productId: 62533493107,
-          purchaseDate: 1670284800000,
-          status: "APPROVED",
-          userEmail: null,
-          userPhoneNumber: "+918878999100",
-          warrantyCode: "B5A5074B",
-          warrantyEndDate: 1670284800000,
-          sku: {
-            code: "test-poc-spd_l2",
-            isActive: true,
-            name: "test-POC-SPD_L2",
-            packagingLevel: 2,
-          },
-        },
-        {
-          activationRequestDate: null,
-          companyCode: "NovaDesiGhee",
-          manufacturingDate: 1670284800000,
-          productId: 29653796565,
-          purchaseDate: 1670284800000,
-          status: "PENDING",
-          userEmail: null,
-          userPhoneNumber: "+918878999100",
-          warrantyCode: "45F8CBA5",
-          warrantyEndDate: 1670284800000,
-          sku: {
-            code: "test-poc-spd_l2",
-            isActive: true,
-            name: "test-POC-SPD_L2",
-            packagingLevel: 2,
-          },
-        },
-      ],
-      nextPage: 2,
-      totalCount: 3,
-    };
+  const fetchEWarrantyRequests = async function (status) {
+
+    listloading.value = true
+
+    const response = await eWarrantyApi.fetchEWarrantyList(rowPerPage.value, pageNumber.value, status)
+
+    const result = response.data.data
 
     warrantyList.value = result.list.map((item) => {
       return {
@@ -132,15 +78,19 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
         lastUpdatedOn:
           dateFormatter(1670284800000) + " " + timeFormatter(1670284800000),
         status: _.capitalize(item.status),
+        sku: {
+          code: "test-poc-spd_l2",
+          isActive: true,
+          name: "test-POC-SPD_L2",
+          packagingLevel: 2,
+        },
       };
     });
-
     totalCount.value = result.totalCount;
-
-    console.log(totalPages.value, totalCount.value);
+    listloading.value = false
   };
 
-  return { warrantyList, rowPerPage, totalPages, fetchEWarrantyRequests };
+  return { warrantyList, listloading, rowPerPage, totalPages, totalCount, pageNumber, fetchEWarrantyRequests };
 });
 
 //Store for warranty form
@@ -221,11 +171,11 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
     basicDetailData.value = [
       {
         label: "Mobile",
-        value: result.user.phoneNumber,
+        value: result.userPhoneNumber,
       },
       {
         label: "Customer",
-        value: result.warrantyData.name,
+        value: result.userName,
       },
       {
         label: "SKU",
@@ -233,7 +183,7 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Purchased From",
-        value: result.warrantyData.purchasedFrom,
+        value: result.purchasedFrom,
       },
       {
         label: "Requested On",
@@ -241,18 +191,18 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Purchased On",
-        value: result.warrantyData.purchasedOn,
+        value: result.purchasedOn,
       },
       {
         label: "Invoice Number",
-        value: result.warrantyData.invoice,
+        value: result.invoiceNumber,
       },
     ];
 
     productDetailData.value = [
       {
         label: "Serial Number",
-        value: "Text",
+        value: result.productDetails.serialNo,
       },
       {
         label: "Batch Number",
@@ -264,7 +214,7 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Level",
-        value: "Text",
+        value: 'L' + result.productDetails.packagingLevel,
       },
       {
         label: "Manufacturing Plant",
@@ -276,7 +226,7 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Ownership",
-        value: "Text",
+        value: result.productDetails.ownership.owner.name,
       },
     ];
 
