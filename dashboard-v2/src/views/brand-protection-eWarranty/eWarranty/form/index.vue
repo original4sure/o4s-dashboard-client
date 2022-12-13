@@ -1,4 +1,5 @@
 <template>
+  <FormDialog/>
   <div v-if="formLoaded" class="flex flex-col gap-4 pb-10 px-8">
     <div class="flex flex-row gap-4 items-center">
       <OButton
@@ -38,7 +39,13 @@
     <div class="flex flex-col gap-8">
       <div class="flex flex-row justify-between items-center">
         <div>Basic Details</div>
-        <div><OButton label="Preview Invoice" oType="primary" /></div>
+        <div>
+          <OButton
+            label="Preview Invoice"
+            oType="primary"
+            @click="openLinkInNewTab(data.invoiceLink)"
+          />
+        </div>
       </div>
 
       <div class="wraper gap-8">
@@ -77,7 +84,10 @@
       </div>
     </div>
   </div>
-  <div v-else class="loader-screen h-96 flex flex-col gap-4 justify-center items-center">
+  <div
+    v-else
+    class="loader-screen h-96 flex flex-col gap-4 justify-center items-center"
+  >
     <div class="lds-dual-ring"></div>
     <div><O4SText oType="md-normal" oLabel="Fetching Warranty Details" /></div>
   </div>
