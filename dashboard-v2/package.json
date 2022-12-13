@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@original4sure/o4s-ui": "^0.0.3",
     "axios": "^1.2.1",
     "lodash": "^4.17.21",
     "pinia": "^2.0.27",
