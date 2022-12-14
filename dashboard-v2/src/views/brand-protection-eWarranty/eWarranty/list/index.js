@@ -41,7 +41,6 @@ export default {
     });
 
     watch(selectedStatus, (newSelectedStatus, oldSelectedStatus) => {
-      console.log(newSelectedStatus)
       store.fetchEWarrantyRequests(newSelectedStatus.value);
     })
 
