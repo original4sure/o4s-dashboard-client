@@ -17,7 +17,7 @@
               <O4SText
                 oType="sm-normal"
                 :oLabel="data.customerName"
-                class="o-secondary-500"
+                class="o-secondary-900"
               />
             </div>
             <div>

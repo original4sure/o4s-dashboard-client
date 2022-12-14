@@ -99,54 +99,54 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
     basicDetailData.value = [
       {
         label: "Mobile",
-        value: userPhoneNumber,
+        value: userPhoneNumber ? userPhoneNumber : 'NA',
       },
       {
         label: "Customer",
-        value: userName,
+        value: userName ? userName : 'NA',
       },
       {
         label: "SKU",
-        value: sku?.name,
+        value: sku?.name ? sku.name : 'NA',
       },
       {
         label: "Purchased From",
-        value: purchasedFrom,
+        value: purchasedFrom ? purchasedFrom : 'NA',
       },
       {
         label: "Requested On",
-        value: DateTime.fromMillis(activationRequestDate).toFormat('dd LLL, yyyy') ,
+        value: activationRequestDate ? DateTime.fromMillis(activationRequestDate).toFormat('dd LLL, yyyy') : 'NA',
       },
       {
         label: "Purchased On",
-        value: DateTime.fromMillis(purchaseDate).toFormat('dd LLL, yyyy'),
+        value: purchaseDate ? DateTime.fromMillis(purchaseDate).toFormat('dd LLL, yyyy') : 'NA',
       },
       {
         label: "Invoice Number",
-        value: invoiceNumber,
+        value: invoiceNumber ? invoiceNumber : 'NA',
       },
     ];
 
     productDetailData.value = [
       {
         label: "Serial Number",
-        value: serialNo,
+        value: serialNo ? serialNo : 'NA',
       },
       {
         label: "Batch Number",
-        value: batchId,
+        value: batchId ? batchId : 'NA',
       },
       {
         label: "Product ID",
-        value: productId,
+        value: productId ? productId: 'NA',
       },
       {
         label: "Level",
-        value: packagingLevel,
+        value: packagingLevel ? packagingLevel : 'NA',
       },
       {
         label: "Manufacturing Plant",
-        value: facilityName,
+        value: facilityName ? facilityName : 'NA',
       },
       {
         label: "Manufacturing Date",
@@ -154,7 +154,7 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Ownership",
-        value: owner.name,
+        value: owner.name ? owner.name : 'NA',
       },
     ];
 

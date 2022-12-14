@@ -1,7 +1,7 @@
 export default {
   name: "BrandProtectionAndEWarranty",
   path: "/brand-protection-eWarranty",
-  label: "Brand Protection & E-Warranty",
+  label: "Brand Protection",
   icon: "pi-book",
   //component: () => import("@/views/brand-protection-eWarranty/index.vue"),
 
