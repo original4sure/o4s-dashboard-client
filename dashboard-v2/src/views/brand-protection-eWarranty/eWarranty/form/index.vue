@@ -33,7 +33,8 @@
       <div class="flex flex-row gap-4">
         <OButton
           label="Reject"
-          oType="secondary"
+          oType="outline"
+          oColor="secondary"
           @click="() => changeStatus('rejected')"
         />
         <OButton
