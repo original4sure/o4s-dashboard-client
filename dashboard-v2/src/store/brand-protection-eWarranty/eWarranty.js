@@ -162,7 +162,7 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Ownership",
-        value: owner?.name ?? "NA",
+        value: ownership?.owner?.name ?? "NA",
       },
     ];
 
