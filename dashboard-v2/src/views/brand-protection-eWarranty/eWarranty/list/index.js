@@ -7,6 +7,8 @@ export default {
   setup() {
     const router = useRouter();
     const store = useEWarrantyListStore();
+    let sortByLastUpdated = ref(null);
+    let sortByPurchasedOn = ref(null);
     const options = ref([
       {value: '', label: 'All Requests'},
       {value: 'APPROVED', label: 'Approved'},
@@ -30,9 +32,9 @@ export default {
 
     function onSort(event) {
       if(event.sortField == 'purchasedOn') {
-        store.fetchEWarrantyRequests(selectedStatus.value.value, null, event.sortOrder);
+        sortByPurchasedOn.value = event.sortOrder
       }else if (event.sortField ==  "lastUpdatedOn") {
-        store.fetchEWarrantyRequests(selectedStatus.value.value, event.sortOrder, null);
+        sortByLastUpdated.value = event.sortOrder
       }
     }
 
@@ -41,7 +43,15 @@ export default {
     });
 
     watch(selectedStatus, (newSelectedStatus, oldSelectedStatus) => {
-      store.fetchEWarrantyRequests(newSelectedStatus.value);
+      store.fetchEWarrantyRequests(newSelectedStatus.value, sortByLastUpdated.value, sortByPurchasedOn.value);
+    })
+
+    watch(sortByPurchasedOn, (newValue, oldValue)=>{
+      store.fetchEWarrantyRequests(selectedStatus.value.value, newValue, null);
+    })
+
+    watch(sortByLastUpdated, (newValue, oldValue)=>{
+      store.fetchEWarrantyRequests(selectedStatus.value.value, null, newValue);
     })
 
     return {
