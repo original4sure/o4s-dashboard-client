@@ -30,7 +30,8 @@
       <div class="flex flex-row gap-4">
         <OButton
           label="Reject"
-          oType="secondary"
+          oType="outline"
+          oColor="secondary"
           @click="() => openDialog('rejected')"
         />
         <OButton
