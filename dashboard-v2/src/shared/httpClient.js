@@ -12,4 +12,15 @@ httpClient.defaults.headers.common[
   "Authorization"
 ] = `Bearer ${getTokenFromStorage()}`;
 
+export const get = async (url, optionConfig) => {
+  try {
+    const response = await httpClient.get(url);
+    return response;
+  } catch (error) {
+    return error
+      ? { errorCode: error.status, errorMessage: error.statusText }
+      : error;
+  }
+};
+
 export { httpClient };

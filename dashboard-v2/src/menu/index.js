@@ -5,8 +5,15 @@ const menu = [
   {
     name: "Dashboard",
     label: "Dashboard",
-    url: "https://dev-dashboard.o4s.io/login",
+    url: "/",
     icon: "pi pi-home",
+  },
+  {
+    name: "dashbaord-v2",
+    label: "Dashboard v2",
+    path: "/",
+    visible: false,
+    redirect: { name: "BrandProtectionAndEWarranty-eWarranty-list" },
   },
   { ...ewarranty },
 ];
