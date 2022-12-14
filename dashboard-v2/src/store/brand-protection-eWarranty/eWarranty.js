@@ -19,7 +19,11 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   );
 
   //api function
-  const fetchEWarrantyRequests = async function (status, sortByLastUpdated, sortByPurchased) {
+  const fetchEWarrantyRequests = async function (
+    status,
+    sortByLastUpdated,
+    sortByPurchased
+  ) {
     listloading.value = true;
 
     const response = await eWarrantyApi.fetchEWarrantyList(
@@ -38,11 +42,15 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
         inVoiceNo: item.invoiceNumber,
         mobileNumber: item.userPhoneNumber,
         purchaseFrom: item.purchasedFrom,
-        purchasedOn: DateTime.fromMillis(item.purchaseDate).toFormat('LLL dd, yyyy'),
-        lastUpdatedOn: DateTime.fromMillis(item.lastUpdatedOn).toLocaleString(DateTime.DATETIME_MED),
+        purchasedOn: DateTime.fromMillis(item.purchaseDate).toFormat(
+          "LLL dd, yyyy"
+        ),
+        lastUpdatedOn: DateTime.fromMillis(item.lastUpdatedOn).toLocaleString(
+          DateTime.DATETIME_MED
+        ),
         status: _.capitalize(item.status),
         warrantyCode: item.warrantyCode,
-        sku: item.sku
+        sku: item.sku,
       };
     });
     totalCount.value = result.totalCount;
@@ -83,18 +91,12 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       activationRequestDate,
       productId,
       invoiceNumber,
-      invoiceLink,
       manufacturingDate,
-      productDetails: {
-        packagingLevel,
-        serialNo,
-        facilityName,
-        batchId,
-        ownership: {
-          owner
-        }
-      }
+      productDetails,
     } = response?.data?.data || {};
+
+    const { packagingLevel, serialNo, facilityName, batchId, ownership } =
+      productDetails || {};
 
     basicDetailData.value = [
       {
@@ -115,11 +117,13 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Requested On",
-        value: DateTime.fromMillis(activationRequestDate).toFormat('dd LLL, yyyy') ,
+        value: DateTime.fromMillis(activationRequestDate).toFormat(
+          "dd LLL, yyyy"
+        ),
       },
       {
         label: "Purchased On",
-        value: DateTime.fromMillis(purchaseDate).toFormat('dd LLL, yyyy'),
+        value: DateTime.fromMillis(purchaseDate).toFormat("dd LLL, yyyy"),
       },
       {
         label: "Invoice Number",
@@ -150,11 +154,13 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Manufacturing Date",
-        value: manufacturingDate ? DateTime.fromMillis(manufacturingDate).toFormat('dd LLL, yyyy') : 'NA',
+        value: manufacturingDate
+          ? DateTime.fromMillis(manufacturingDate).toFormat("dd LLL, yyyy")
+          : "NA",
       },
       {
         label: "Ownership",
-        value: owner.name,
+        value: ownership?.owner?.name,
       },
     ];
 

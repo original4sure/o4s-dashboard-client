@@ -1,6 +1,12 @@
 import { httpClient } from "../shared/httpClient";
 
-const fetchEWarrantyList = async (pageSize, pageNumber, status, sortByLastUpdated = null, sortByPurchasedOn = null) => {
+const fetchEWarrantyList = async (
+  pageSize,
+  pageNumber,
+  status,
+  sortByLastUpdated = null,
+  sortByPurchasedOn = null
+) => {
   try {
     const fetchEWarrantyListUrl = `/consumer/warranty/list`;
     const eWarrantyList = await httpClient.post(fetchEWarrantyListUrl, {
@@ -9,10 +15,10 @@ const fetchEWarrantyList = async (pageSize, pageNumber, status, sortByLastUpdate
       filters: {
         status: status,
       },
-      sorts : {
-        "updatedAt": sortByLastUpdated,
-        "warrantyData.purchasedOn": sortByPurchasedOn
-      }
+      sorts: {
+        updatedAt: sortByLastUpdated,
+        "warrantyData.purchasedOn": sortByPurchasedOn,
+      },
     });
     return eWarrantyList;
   } catch (error) {
@@ -38,7 +44,20 @@ const fetchWarranty = async (warrantyCode) => {
   }
 };
 
+const changeStatus = async (warrantyCode, payload) => {
+  try {
+    const url = `/consumer/warranty?code=${warrantyCode}`;
+    const result = await httpClient.put(url, payload);
+    return result;
+  } catch (error) {
+    return error
+      ? { errorCode: error.status, errorMessage: error.statusText }
+      : error;
+  }
+};
+
 export default {
   fetchEWarrantyList,
   fetchWarranty,
+  changeStatus,
 };

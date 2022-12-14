@@ -5,9 +5,11 @@
       header=" "
       :closable="false"
       :draggable="false"
+      :modal="true"
+      style="width: auto"
     >
-      <div class="grid justify-center gap-2">
-        <img :src="status == 'approved' ? accepted : rejected"/>
+      <div class="grid justify-center gap-2 px-48 py-12">
+        <img :src="status == 'approved' ? accepted : rejected" />
         <O4SText :oLabel="`E-warranty has been ${status}!`" oType="lg-medium" />
         <OButton
           :oColor="`${status == 'approved' ? 'primary' : 'error'}`"
@@ -22,8 +24,8 @@
 
 <script setup>
 import { computed } from "vue";
-import accepted from "../../../../assets/accepted.svg"
-import rejected from "../../../../assets/rejected.svg"
+import accepted from "../../../../assets/accepted.svg";
+import rejected from "../../../../assets/rejected.svg";
 
 const props = defineProps(["display", "redirectTolistScreen", "status"]);
 const display = computed(() => props.display);

@@ -12,7 +12,10 @@
       </div>
     </div>
 
-    <div class="header flex flex-row justify-between">
+    <div
+      v-if="data.status == 'PENDING'"
+      class="header flex flex-row justify-between"
+    >
       <div>
         <O4SText
           oType="lg-medium"
@@ -31,12 +34,12 @@
         <OButton
           label="Reject"
           oType="secondary"
-          @click="() => openDialog('rejected')"
+          @click="() => changeStatus('rejected')"
         />
         <OButton
           label="Approve"
           oType="primary"
-          @click="() => openDialog('approved')"
+          @click="() => changeStatus('approved')"
         />
       </div>
     </div>
