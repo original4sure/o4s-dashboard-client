@@ -45,5 +45,15 @@ const logoutAction = () => {
         </template>
       </O4SAppMenu>
     </div>
+    <div v-else>
+      <div
+        class="loader-screen h-96 flex flex-col gap-4 justify-center items-center"
+      >
+        <div class="lds-dual-ring"></div>
+        <div>
+          <O4SText oType="md-normal" oLabel="Loading Dashboard V2..." />
+        </div>
+      </div>
+    </div>
   </div>
 </template>

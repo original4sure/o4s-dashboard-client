@@ -4,14 +4,22 @@
       <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
     </div>
     <div>
-      <OButtonGroup v-model="selectedStatus" :options="options"/>
+      <OButtonGroup v-model="selectedStatus" :options="options" />
     </div>
     <div class="h-full">
-      <ODataTable :value="warrantyList" :lazy="true" :loading="listloading" :paginator="true" :rows="rowPerPage" :totalRecords="totalCount" @page="onPage($event)" @sort="onSort($event)" paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5, 10, 15]">
-        <OColumn
-          field="customerName"
-          header="Customer Details"
-        >
+      <ODataTable
+        :value="warrantyList"
+        :lazy="true"
+        :loading="listloading"
+        :paginator="true"
+        :rows="rowPerPage"
+        :totalRecords="totalCount"
+        @page="onPage($event)"
+        @sort="onSort($event)"
+        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+        :rowsPerPageOptions="[5, 10, 15]"
+      >
+        <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">
             <div>
               <O4SText
@@ -56,10 +64,7 @@
             </div>
           </template>
         </OColumn>
-        <OColumn
-          field="purchaseFrom"
-          header="Purchased From"
-        >
+        <OColumn field="purchaseFrom" header="Purchased From">
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"
@@ -68,11 +73,7 @@
             />
           </template>
         </OColumn>
-        <OColumn
-          field="purchasedOn"
-          :sortable="true"
-          header="Purchased On"
-        >
+        <OColumn field="purchasedOn" :sortable="true" header="Purchased On">
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"
@@ -129,13 +130,12 @@
         <OColumn>
           <template #body="{ data }">
             <i
-              class="pi pi-eye"
+              class="pi pi-eye o-active"
               @click="handleRequestDetails(data.warrantyCode)"
             />
           </template>
         </OColumn>
       </ODataTable>
-      
     </div>
   </div>
 </template>
