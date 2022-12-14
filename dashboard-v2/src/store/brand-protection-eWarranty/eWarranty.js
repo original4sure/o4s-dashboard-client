@@ -19,13 +19,15 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   );
 
   //api function
-  const fetchEWarrantyRequests = async function (status) {
+  const fetchEWarrantyRequests = async function (status, sortByLastUpdated, sortByPurchased) {
     listloading.value = true;
 
     const response = await eWarrantyApi.fetchEWarrantyList(
       rowPerPage.value,
       pageNumber.value,
-      status
+      status,
+      sortByLastUpdated,
+      sortByPurchased
     );
 
     const result = response.data.data;

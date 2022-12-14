@@ -1,6 +1,6 @@
 import { httpClient } from "../shared/httpClient";
 
-const fetchEWarrantyList = async (pageSize, pageNumber, status) => {
+const fetchEWarrantyList = async (pageSize, pageNumber, status, sortByLastUpdated = null, sortByPurchasedOn = null) => {
   try {
     const fetchEWarrantyListUrl = `/consumer/warranty/list`;
     const eWarrantyList = await httpClient.post(fetchEWarrantyListUrl, {
@@ -9,6 +9,10 @@ const fetchEWarrantyList = async (pageSize, pageNumber, status) => {
       filters: {
         status: status,
       },
+      sorts : {
+        "updatedAt": sortByLastUpdated,
+        "warrantyData.purchasedOn": sortByPurchasedOn
+      }
     });
     return eWarrantyList;
   } catch (error) {

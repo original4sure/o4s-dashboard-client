@@ -7,10 +7,9 @@
       <OButtonGroup v-model="selectedStatus" :options="options"/>
     </div>
     <div class="h-full">
-      <ODataTable :value="warrantyList" :lazy="true" :loading="listloading" :paginator="true" :rows="rowPerPage" :totalRecords="totalCount" @page="onPage($event)" paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5, 10, 15]">
+      <ODataTable :value="warrantyList" :lazy="true" :loading="listloading" :paginator="true" :rows="rowPerPage" :totalRecords="totalCount" @page="onPage($event)" @sort="onSort($event)" paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5, 10, 15]">
         <OColumn
           field="customerName"
-          :sortable="true"
           header="Customer Details"
         >
           <template #body="{ data }">
@@ -30,7 +29,7 @@
             </div>
           </template>
         </OColumn>
-        <OColumn field="inVoiceNo" header="Invoice No" :sortable="true">
+        <OColumn field="inVoiceNo" header="Invoice No">
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"
@@ -59,9 +58,7 @@
         </OColumn>
         <OColumn
           field="purchaseFrom"
-          :sortable="true"
           header="Purchased From"
-          class=""
         >
           <template #body="{ data }">
             <O4SText
@@ -75,7 +72,6 @@
           field="purchasedOn"
           :sortable="true"
           header="Purchased On"
-          class=""
         >
           <template #body="{ data }">
             <O4SText
@@ -85,7 +81,7 @@
             />
           </template>
         </OColumn>
-        <OColumn field="lastUpdatedOn" header="Last Updated" class="">
+        <OColumn field="lastUpdatedOn" header="Last Updated" :sortable="true">
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"

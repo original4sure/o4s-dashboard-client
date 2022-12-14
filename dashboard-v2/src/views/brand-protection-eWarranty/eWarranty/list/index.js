@@ -21,12 +21,19 @@ export default {
     } 
 
     function onPage(event) {
-      console.log(event)
       store.$patch(state => {
         state.pageNumber = event.page
         state.rowPerPage = event.rows
       })
       store.fetchEWarrantyRequests(selectedStatus.value.value);
+    }
+
+    function onSort(event) {
+      if(event.sortField == 'purchasedOn') {
+        store.fetchEWarrantyRequests(selectedStatus.value.value, null, event.sortOrder);
+      }else if (event.sortField ==  "lastUpdatedOn") {
+        store.fetchEWarrantyRequests(selectedStatus.value.value, event.sortOrder, null);
+      }
     }
 
     onMounted(() => {
@@ -43,6 +50,7 @@ export default {
       selectedStatus,
       handleRequestDetails,
       onPage,
+      onSort,
       warrantyList: computed(() => store.warrantyList),
       rowPerPage: computed(() => store.rowPerPage),
       totalCount: computed(() => store.totalCount),
