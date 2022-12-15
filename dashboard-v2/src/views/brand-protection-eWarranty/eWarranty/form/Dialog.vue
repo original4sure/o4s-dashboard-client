@@ -10,7 +10,11 @@
     >
       <div class="grid justify-center gap-2 px-48 py-12">
         <img :src="status == 'approved' ? accepted : rejected" />
-        <O4SText :oLabel="`E-warranty has been ${status}!`" oType="lg-medium" />
+        <O4SText
+          class="grid justify-center"
+          :oLabel="`E-warranty has been ${status}!`"
+          oType="lg-medium"
+        />
         <OButton
           :oColor="`${status == 'approved' ? 'primary' : 'error'}`"
           class="mt-1"
