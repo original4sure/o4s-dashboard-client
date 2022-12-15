@@ -22,6 +22,16 @@
         v-model:selection="selectedWarranty" 
         selectionMode="single"
       >
+        <template #empty>
+          <div class="text-center">
+            <O4SText
+                oType="sm-normal"
+                oLabel="No warranty requests found"
+                class="o-secondary-900"
+              />
+          </div>
+            
+        </template>
         <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">
             <div>
@@ -111,7 +121,7 @@
             <OTag v-else :oLabel="data.status" severity="warning" />
           </template>
         </OColumn>
-        <OColumn>
+        <OColumn header="Actions">
           <template #body="{ data }">
             <i
               class="pi pi-eye o-active"
