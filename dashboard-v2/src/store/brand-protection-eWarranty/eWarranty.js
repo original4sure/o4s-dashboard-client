@@ -8,7 +8,7 @@ import { DateTime } from "luxon";
 export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   //states
   let warrantyList = ref([]);
-  let rowPerPage = ref(5);
+  let rowPerPage = ref(10);
   let totalCount = ref(0);
   let listloading = ref(false);
   let pageNumber = ref(0);

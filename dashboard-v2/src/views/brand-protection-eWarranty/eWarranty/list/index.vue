@@ -17,20 +17,21 @@
         @page="onPage($event)"
         @sort="onSort($event)"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-        :rowsPerPageOptions="[5, 10, 15]"
+        :rowsPerPageOptions="[10, 15, 20]"
         :rowHover="true"
-        v-model:selection="selectedWarranty" 
+        v-model:selection="selectedWarranty"
         selectionMode="single"
+        :scrollable="true"
+        scrollHeight="calc(100vh - 214px)"
       >
         <template #empty>
           <div class="text-center">
             <O4SText
-                oType="sm-normal"
-                oLabel="No warranty requests found"
-                class="o-secondary-900"
-              />
+              oType="sm-normal"
+              oLabel="No warranty requests found"
+              class="o-secondary-900"
+            />
           </div>
-            
         </template>
         <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">
