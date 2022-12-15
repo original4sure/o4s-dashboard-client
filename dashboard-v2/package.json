@@ -13,7 +13,7 @@
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "luxon": "^3.1.1",
-    "o4s-ui": "github:original4sure/o4s-ui#menubar",
+    "o4s-ui": "github:original4sure/o4s-ui",
     "pinia": "^2.0.27",
     "vue": "^3.2.45",
     "vue-cookies": "^1.8.2",
