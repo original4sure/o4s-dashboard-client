@@ -40,9 +40,10 @@ export default {
     };
 
     const changeStatus = async (status) => {
+
       const response = await eWarrantyApi.changeStatus(warrantyCode, {
         status: status.toUpperCase(),
-        companyCode: "NovaDesiGhee" || companyCode, // @TODO hardcode for testing
+        companyCode: store.data.companyCode, // @TODO hardcode for testing
       });
 
       if (response?.data?.success) {

@@ -9,6 +9,7 @@ export default {
     const store = useEWarrantyListStore();
     let sortByLastUpdated = ref(null);
     let sortByPurchasedOn = ref(null);
+    let selectedWarranty = ref({});
     const options = ref([
       {value: '', label: 'All Requests'},
       {value: 'APPROVED', label: 'Approved'},
@@ -54,9 +55,14 @@ export default {
       store.fetchEWarrantyRequests(selectedStatus.value.value, null, newValue);
     })
 
+    watch(selectedWarranty, (newValue, oldValue)=>{
+      handleRequestDetails(newValue.warrantyCode)
+    })
+
     return {
       options,
       selectedStatus,
+      selectedWarranty,
       handleRequestDetails,
       onPage,
       onSort,
