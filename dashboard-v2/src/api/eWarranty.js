@@ -1,4 +1,4 @@
-import { httpClient } from "../shared/httpClient";
+import { httpClient, postCall } from "../shared/httpClient";
 
 const fetchEWarrantyList = async (
   pageSize,
@@ -9,7 +9,7 @@ const fetchEWarrantyList = async (
 ) => {
   try {
     const fetchEWarrantyListUrl = `/consumer/warranty/list`;
-    const eWarrantyList = await httpClient.post(fetchEWarrantyListUrl, {
+    const eWarrantyList = await postCall(fetchEWarrantyListUrl, {
       pageNumber: pageNumber,
       pageSize: pageSize,
       filters: {

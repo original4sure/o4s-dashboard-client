@@ -1,5 +1,5 @@
-import { get } from "../../shared/httpClient";
+import { getCall } from "../../shared/httpClient";
 export const fetchConfig = async (pageSize, pageNumber, status) => {
-  const response = await get("/utilities/config");
+  const response = await getCall("/utilities/config");
   return response?.data;
 };

@@ -16,10 +16,10 @@ export const useAuthUserStore = defineStore("authUser", () => {
   const fetchConfig = async () => {
     const config = await api.fetchConfig();
     if (config) {
-      company.name = config?.data?.company?.name;
-      company.code = config?.data?.company?.code;
-      company.logoPath = config?.data?.company?.logoPath;
-      user.email = config.data.email;
+      company.name = config?.company?.name;
+      company.code = config?.company?.code;
+      company.logoPath = config?.company?.logoPath;
+      user.email = config?.email;
       isUserLoggedin.value = true;
     } else {
       isUserLoggedin.value = false;
