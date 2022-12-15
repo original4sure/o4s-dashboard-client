@@ -14,7 +14,7 @@ router.beforeEach((to, from, next) => {
   if (isAuthTokenValid()) {
     next();
   } else {
-    // window.location.replace("/");
+    window.location.replace("/");
   }
 });
 

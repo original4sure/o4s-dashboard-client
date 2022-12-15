@@ -30,7 +30,7 @@
         />
       </div>
 
-      <div class="flex flex-row gap-4">
+      <div class="flex flex-row gap-x-4 gap-y-2">
         <OButton
           label="Reject"
           oType="outline"
@@ -47,7 +47,7 @@
 
     <ODivider />
 
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-6">
       <div class="flex flex-row justify-between items-center">
         <div>Basic Details</div>
         <div>
@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <div class="wraper gap-8">
+      <div class="wraper gap-x-8 gap-y-2">
         <div
           class="checkbox-item"
           v-for="{ value, label } in basicDetailData"
@@ -77,9 +77,9 @@
 
     <ODivider />
 
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-6">
       <div>Product Details</div>
-      <div class="wraper gap-8">
+      <div class="wraper gap-x-8 gap-y-2">
         <div
           class="checkbox-item"
           v-for="{ value, label } in productDetailData"

@@ -114,7 +114,7 @@
         <OColumn>
           <template #body="{ data }">
             <i
-              class="pi pi-eye"
+              class="pi pi-eye o-active"
               @click="handleRequestDetails(data.warrantyCode)"
             />
           </template>
