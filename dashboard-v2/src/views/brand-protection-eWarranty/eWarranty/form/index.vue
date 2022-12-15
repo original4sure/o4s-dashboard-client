@@ -69,7 +69,6 @@
             :oLabel="label"
             :value="value"
             :disabled="true"
-            oRightIcon="pi pi-question-circle"
           />
         </div>
       </div>
@@ -89,7 +88,6 @@
             :oLabel="label"
             :value="value"
             :disabled="true"
-            oRightIcon="pi pi-question-circle"
           />
         </div>
       </div>

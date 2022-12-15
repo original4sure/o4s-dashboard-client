@@ -16,7 +16,7 @@
         :totalRecords="totalCount"
         @page="onPage($event)"
         @sort="onSort($event)"
-        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 15]"
         :rowHover="true"
         v-model:selection="selectedWarranty" 
@@ -119,14 +119,6 @@
             />
 
             <OTag v-else :oLabel="data.status" severity="warning" />
-          </template>
-        </OColumn>
-        <OColumn header="Actions">
-          <template #body="{ data }">
-            <i
-              class="pi pi-eye o-active"
-              @click="handleRequestDetails(data.warrantyCode)"
-            />
           </template>
         </OColumn>
       </ODataTable>

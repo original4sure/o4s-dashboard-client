@@ -34,7 +34,7 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
       sortByPurchased
     );
 
-    const result = response.data.data;
+    const result = response.data;
 
     warrantyList.value = result.list.map((item) => {
       return {

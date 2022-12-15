@@ -22,7 +22,6 @@ const fetchEWarrantyList = async (
     });
     return eWarrantyList;
   } catch (error) {
-    console.log("L3");
     return error
       ? { errorCode: error.status, errorMessage: error.statusText }
       : error;
