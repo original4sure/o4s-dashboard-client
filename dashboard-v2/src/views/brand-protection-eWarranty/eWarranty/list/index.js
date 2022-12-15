@@ -28,14 +28,21 @@ export default {
         state.pageNumber = event.page
         state.rowPerPage = event.rows
       })
-      store.fetchEWarrantyRequests(selectedStatus.value.value);
+      store.fetchEWarrantyRequests(selectedStatus.value.value, sortByLastUpdated.value, sortByPurchasedOn.value);
     }
 
     function onSort(event) {
       if(event.sortField == 'purchasedOn') {
         sortByPurchasedOn.value = event.sortOrder
+        sortByLastUpdated.value = null
+        store.$patch(state => { state.pageNumber = 0 })
+        store.fetchEWarrantyRequests(selectedStatus.value.value, null, sortByPurchasedOn.value);
+
       }else if (event.sortField ==  "lastUpdatedOn") {
         sortByLastUpdated.value = event.sortOrder
+        sortByPurchasedOn.value = null
+        store.$patch(state => { state.pageNumber = 0 })
+        store.fetchEWarrantyRequests(selectedStatus.value.value, sortByLastUpdated.value, null);
       }
     }
 
@@ -45,14 +52,6 @@ export default {
 
     watch(selectedStatus, (newSelectedStatus, oldSelectedStatus) => {
       store.fetchEWarrantyRequests(newSelectedStatus.value, sortByLastUpdated.value, sortByPurchasedOn.value);
-    })
-
-    watch(sortByPurchasedOn, (newValue, oldValue)=>{
-      store.fetchEWarrantyRequests(selectedStatus.value.value, newValue, null);
-    })
-
-    watch(sortByLastUpdated, (newValue, oldValue)=>{
-      store.fetchEWarrantyRequests(selectedStatus.value.value, null, newValue);
     })
 
     watch(selectedWarranty, (newValue, oldValue)=>{
