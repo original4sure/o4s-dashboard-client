@@ -9,6 +9,7 @@ export default {
     const store = useEWarrantyListStore();
     let sortByLastUpdated = ref(null);
     let sortByPurchasedOn = ref(null);
+    let selectedWarranty = ref({});
     const options = ref([
       {value: '', label: 'All Requests'},
       {value: 'APPROVED', label: 'Approved'},
@@ -27,14 +28,21 @@ export default {
         state.pageNumber = event.page
         state.rowPerPage = event.rows
       })
-      store.fetchEWarrantyRequests(selectedStatus.value.value);
+      store.fetchEWarrantyRequests(selectedStatus.value.value, sortByLastUpdated.value, sortByPurchasedOn.value);
     }
 
     function onSort(event) {
       if(event.sortField == 'purchasedOn') {
         sortByPurchasedOn.value = event.sortOrder
+        sortByLastUpdated.value = null
+        store.$patch(state => { state.pageNumber = 0 })
+        store.fetchEWarrantyRequests(selectedStatus.value.value, null, sortByPurchasedOn.value);
+
       }else if (event.sortField ==  "lastUpdatedOn") {
         sortByLastUpdated.value = event.sortOrder
+        sortByPurchasedOn.value = null
+        store.$patch(state => { state.pageNumber = 0 })
+        store.fetchEWarrantyRequests(selectedStatus.value.value, sortByLastUpdated.value, null);
       }
     }
 
@@ -46,17 +54,14 @@ export default {
       store.fetchEWarrantyRequests(newSelectedStatus.value, sortByLastUpdated.value, sortByPurchasedOn.value);
     })
 
-    watch(sortByPurchasedOn, (newValue, oldValue)=>{
-      store.fetchEWarrantyRequests(selectedStatus.value.value, newValue, null);
-    })
-
-    watch(sortByLastUpdated, (newValue, oldValue)=>{
-      store.fetchEWarrantyRequests(selectedStatus.value.value, null, newValue);
+    watch(selectedWarranty, (newValue, oldValue)=>{
+      handleRequestDetails(newValue.warrantyCode)
     })
 
     return {
       options,
       selectedStatus,
+      selectedWarranty,
       handleRequestDetails,
       onPage,
       onSort,

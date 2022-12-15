@@ -92,28 +92,29 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       productId,
       invoiceNumber,
       manufacturingDate,
-      productDetails,
+      packagingLevel,
+      serialNo,
+      facilityName,
+      batchId,
+      ownership
     } = response?.data?.data || {};
-
-    const { packagingLevel, serialNo, facilityName, batchId, ownership } =
-      productDetails || {};
 
     basicDetailData.value = [
       {
         label: "Mobile",
-        value: userPhoneNumber ? userPhoneNumber : "NA",
+        value: userPhoneNumber ?? "NA",
       },
       {
         label: "Customer",
-        value: userName ? userName : "NA",
+        value: userName ?? "NA",
       },
       {
         label: "SKU",
-        value: sku?.name ? sku.name : "NA",
+        value: sku?.name ?? "NA",
       },
       {
         label: "Purchased From",
-        value: purchasedFrom ? purchasedFrom : "NA",
+        value: purchasedFrom ?? "NA",
       },
       {
         label: "Requested On",
@@ -129,30 +130,30 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Invoice Number",
-        value: invoiceNumber ? invoiceNumber : "NA",
+        value: invoiceNumber ?? "NA",
       },
     ];
 
     productDetailData.value = [
       {
         label: "Serial Number",
-        value: serialNo ? serialNo : "NA",
+        value: serialNo ?? "NA",
       },
       {
         label: "Batch Number",
-        value: batchId ? batchId : "NA",
+        value: batchId ?? "NA",
       },
       {
         label: "Product ID",
-        value: productId ? productId : "NA",
+        value: productId ?? "NA",
       },
       {
         label: "Level",
-        value: packagingLevel ? packagingLevel : "NA",
+        value: packagingLevel ?? "NA",
       },
       {
         label: "Manufacturing Plant",
-        value: facilityName ? facilityName : "NA",
+        value: facilityName ?? "NA",
       },
       {
         label: "Manufacturing Date",

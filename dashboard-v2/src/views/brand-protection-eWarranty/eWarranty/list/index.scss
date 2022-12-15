@@ -44,3 +44,58 @@
     transform: rotate(360deg);
   }
 }
+
+.p-datatable {
+  .p-datatable-thead>tr>th {
+    background: var(--primary-300);
+    .p-column-header-content {
+      color: var(--base-white)
+    }
+  }
+
+  .p-datatable-tbody>tr:focus {
+    outline: unset;
+  }
+
+  .p-sortable-column{
+    &.p-highlight {
+      background: var(--primary-400);
+      .p-sortable-column-icon {
+        color: var(--base-white);
+      }
+    } 
+
+    &:not(.p-highlight):hover{
+      background: var(--primary-400);
+      color: var(--base-white)
+    }
+
+    &.p-highlight:hover {
+      background: var(--primary-400);
+      .p-sortable-column-icon {
+        color: var(--base-white);
+      }
+    }
+
+    &:focus {
+      box-shadow: inset 0 0 0 0.15rem var(--primary-400);
+    }
+
+    &:not(.p-highlight):hover .p-sortable-column-icon {
+      color: var(--base-white)
+    }
+
+    .p-sortable-column-icon{
+      color: var(--base-white);
+
+      &:hover{
+        color: var(--base-white)
+      }
+    }
+  }
+
+  &.p-datatable-hoverable-rows .p-datatable-tbody>tr:not(.p-highlight):hover {
+    background: var(--primary-50);;
+  }
+
+} 

@@ -18,7 +18,20 @@
         @sort="onSort($event)"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 15]"
+        :rowHover="true"
+        v-model:selection="selectedWarranty" 
+        selectionMode="single"
       >
+        <template #empty>
+          <div class="text-center">
+            <O4SText
+                oType="sm-normal"
+                oLabel="No warranty requests found"
+                class="o-secondary-900"
+              />
+          </div>
+            
+        </template>
         <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">
             <div>
@@ -93,41 +106,22 @@
         </OColumn>
         <OColumn field="status" header="Status" class="">
           <template #body="{ data }">
-            <div
+            <OTag
               v-if="data.status == 'Rejected'"
-              class="flex justify-center items-center py-0.5 px-2 badgeRejected"
-            >
-              <O4SText
-                oType="sm-normal"
-                :oLabel="data.status"
-                class="o-error-700"
-              />
-            </div>
+              :oLabel="data.status"
+              severity="danger"
+            />
 
-            <div
+            <OTag
               v-else-if="data.status == 'Approved'"
-              class="flex justify-center items-center py-0.5 px-2 badgeApproved"
-            >
-              <O4SText
-                oType="sm-normal"
-                :oLabel="data.status"
-                class="o-success-700"
-              />
-            </div>
+              :oLabel="data.status"
+              severity="success"
+            />
 
-            <div
-              v-else
-              class="flex justify-center items-center py-0.5 px-2 badgePending"
-            >
-              <O4SText
-                oType="sm-normal"
-                :oLabel="data.status"
-                class="o-warning-700"
-              />
-            </div>
+            <OTag v-else :oLabel="data.status" severity="warning" />
           </template>
         </OColumn>
-        <OColumn>
+        <OColumn header="Actions">
           <template #body="{ data }">
             <i
               class="pi pi-eye o-active"
