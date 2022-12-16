@@ -24,8 +24,8 @@
         :scrollable="true"
         scrollHeight="calc(100vh - 214px)"
       >
-        <template #empty>
-          <div class="text-center">
+        <template #empty class="text-center">
+          <div>
             <O4SText
               oType="sm-normal"
               oLabel="No warranty requests found"
@@ -35,14 +35,12 @@
         </template>
         <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">
-            <div>
+            <div class="flex flex-col">
               <O4SText
                 oType="sm-normal"
                 :oLabel="data.customerName"
                 class="o-secondary-900"
               />
-            </div>
-            <div>
               <O4SText
                 oType="sm-normal"
                 :oLabel="data.mobileNumber"
@@ -62,14 +60,12 @@
         </OColumn>
         <OColumn field="sku" header="SKU">
           <template #body="{ data }">
-            <div>
+            <div class="flex flex-col">
               <O4SText
                 oType="sm-normal"
                 :oLabel="data.sku.name"
                 class="o-secondary-500"
               />
-            </div>
-            <div>
               <O4SText
                 oType="sm-normal"
                 :oLabel="data.sku.code"
