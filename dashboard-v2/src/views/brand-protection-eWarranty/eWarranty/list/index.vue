@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-4 px-6">
+  <div v-if="!errorMessage" class="flex flex-col gap-4 px-6">
     <div>
       <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
     </div>
@@ -120,6 +120,11 @@
         </OColumn>
       </ODataTable>
     </div>
+  </div>
+  <div v-else class="flex flex-col justify-center items-center">
+    <img :src="oops" class="w-96"/>
+    <O4SText oType="display-xs-normal" :oLabel="errorMessage" />
+    <O4SText oType="sm-normal" oLabel="Please Try After Sometime" />
   </div>
 </template>
 

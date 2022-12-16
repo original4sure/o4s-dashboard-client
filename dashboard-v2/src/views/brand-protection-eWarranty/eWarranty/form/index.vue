@@ -8,7 +8,7 @@
         @click="redirectTolistScreen"
       />
       <div>
-        <O4SText oType="display-xs-normal" oLabel="Jhon Doe" />
+        <O4SText oType="display-xs-normal" :oLabel="basicDetailData[1].value" />
       </div>
     </div>
 

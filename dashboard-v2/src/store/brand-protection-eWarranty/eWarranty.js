@@ -12,6 +12,7 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   let totalCount = ref(0);
   let listloading = ref(false);
   let pageNumber = ref(0);
+  let errorMessage = ref("")
 
   //computed properties
   let totalPages = computed(() =>
@@ -34,27 +35,32 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
       sortByPurchased
     );
 
-    const result = response.data;
-
-    warrantyList.value = result.list.map((item) => {
-      return {
-        customerName: item.userName,
-        inVoiceNo: item.invoiceNumber,
-        mobileNumber: item.userPhoneNumber,
-        purchaseFrom: item.purchasedFrom,
-        purchasedOn: DateTime.fromMillis(item.purchaseDate).toFormat(
-          "LLL dd, yyyy"
-        ),
-        lastUpdatedOn: DateTime.fromMillis(item.lastUpdatedOn).toLocaleString(
-          DateTime.DATETIME_MED
-        ),
-        status: _.capitalize(item.status),
-        warrantyCode: item.warrantyCode,
-        sku: item.sku,
-      };
-    });
-    totalCount.value = result.totalCount;
-    listloading.value = false;
+    if(response.success){
+      const result = response.data;
+      warrantyList.value = result.list.map((item) => {
+        return {
+          customerName: item.userName,
+          inVoiceNo: item.invoiceNumber,
+          mobileNumber: item.userPhoneNumber,
+          purchaseFrom: item.purchasedFrom,
+          purchasedOn: DateTime.fromMillis(item.purchaseDate).toFormat(
+            "LLL dd, yyyy"
+          ),
+          lastUpdatedOn: DateTime.fromMillis(item.lastUpdatedOn).toLocaleString(
+            DateTime.DATETIME_MED
+          ),
+          status: _.capitalize(item.status),
+          warrantyCode: item.warrantyCode,
+          sku: item.sku,
+        };
+      });
+      totalCount.value = result.totalCount;
+      listloading.value = false;
+    }else{
+      console.log("L2",response)
+      errorMessage.value = response.message
+      console.log("L3 ", errorMessage.value)
+    }
   };
 
   return {
@@ -64,6 +70,7 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
     totalPages,
     totalCount,
     pageNumber,
+    errorMessage,
     fetchEWarrantyRequests,
   };
 });

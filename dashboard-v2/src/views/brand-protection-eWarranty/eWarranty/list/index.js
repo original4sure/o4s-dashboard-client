@@ -1,6 +1,7 @@
 import { onMounted, computed, ref, watch} from "vue";
 import { useRouter } from "vue-router";
 import { useEWarrantyListStore } from "@/store/brand-protection-eWarranty/eWarranty";
+import oops from '../../../../assets/oops.gif'
 import "./index.scss";
 
 export default {
@@ -65,6 +66,8 @@ export default {
       handleRequestDetails,
       onPage,
       onSort,
+      oops,
+      errorMessage: computed(()=> store.errorMessage),
       warrantyList: computed(() => store.warrantyList),
       rowPerPage: computed(() => store.rowPerPage),
       totalCount: computed(() => store.totalCount),

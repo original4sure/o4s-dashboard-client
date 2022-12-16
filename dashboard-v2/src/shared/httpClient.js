@@ -71,7 +71,7 @@ const successResponseResolver = function(response){
 }
 
 const errorResponseResolver = function(error){
-  const result = { data : {}, success: false, error, ...error?.response?.data}
+  const result = { data : {}, success: false, message: error?.response?.data?.message || error?.message, error}
   console.log(result)
   return result
 }
