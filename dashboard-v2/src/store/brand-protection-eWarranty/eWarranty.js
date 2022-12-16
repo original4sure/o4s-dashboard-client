@@ -12,7 +12,7 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
   let totalCount = ref(0);
   let listloading = ref(false);
   let pageNumber = ref(0);
-  let errorMessage = ref("")
+  let errorMessage = ref("");
 
   //computed properties
   let totalPages = computed(() =>
@@ -35,7 +35,7 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
       sortByPurchased
     );
 
-    if(response.success){
+    if (response.success) {
       const result = response.data;
       warrantyList.value = result.list.map((item) => {
         return {
@@ -56,10 +56,10 @@ export const useEWarrantyListStore = defineStore("eWarrantyList", () => {
       });
       totalCount.value = result.totalCount;
       listloading.value = false;
-    }else{
-      console.log("L2",response)
-      errorMessage.value = response.message
-      console.log("L3 ", errorMessage.value)
+    } else {
+      console.log("L2", response);
+      errorMessage.value = response.message;
+      console.log("L3 ", errorMessage.value);
     }
   };
 
@@ -103,7 +103,7 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       serialNo,
       facilityName,
       batchId,
-      ownership
+      ownership,
     } = response?.data?.data || {};
 
     basicDetailData.value = [
