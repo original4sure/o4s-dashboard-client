@@ -122,11 +122,7 @@
       </ODataTable>
     </div>
   </div>
-  <div v-else class="flex flex-col justify-center items-center">
-    <img :src="oops" class="w-96" />
-    <O4SText oType="display-xs-normal" :oLabel="errorMessage" />
-    <O4SText oType="sm-normal" oLabel="Please Try After Sometime" />
-  </div>
+  <ApiError v-else :errorMessage="errorMessage" />
 </template>
 
 <script src="./index.js"></script>
