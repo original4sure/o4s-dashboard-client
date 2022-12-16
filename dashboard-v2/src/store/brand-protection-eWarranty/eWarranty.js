@@ -160,7 +160,7 @@ export const useEWarrantyFromStore = defineStore("eWarrantyForm", () => {
       },
       {
         label: "Manufacturing Plant",
-        value: facilityName ?? "NA",
+        value: typeof facilityName == "String" ? facilityName : "NA",
       },
       {
         label: "Manufacturing Date",

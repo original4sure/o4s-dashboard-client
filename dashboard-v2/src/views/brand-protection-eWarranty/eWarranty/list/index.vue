@@ -24,7 +24,7 @@
         :scrollable="true"
         scrollHeight="calc(100vh - 214px)"
       >
-        <template #empty class="text-center">
+      <template #empty class="text-center">
           <div>
             <O4SText
               oType="sm-normal"
@@ -32,6 +32,12 @@
               class="o-secondary-900"
             />
           </div>
+        </template>
+        <template #loading>
+          <img
+            src="../../../../assets/loader.gif"
+            style="width: 10rem"
+          />
         </template>
         <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">
@@ -122,7 +128,7 @@
     </div>
   </div>
   <div v-else class="flex flex-col justify-center items-center">
-    <img :src="oops" class="w-96"/>
+    <img :src="oops" class="w-96" />
     <O4SText oType="display-xs-normal" :oLabel="errorMessage" />
     <O4SText oType="sm-normal" oLabel="Please Try After Sometime" />
   </div>
