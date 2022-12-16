@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useEWarrantyFromStore } from "@/store/brand-protection-eWarranty/eWarranty";
 import FormDialog from "./Dialog.vue";
 import eWarrantyApi from "../../../../api/eWarranty";
+import { useAppConfigStore } from "@/store/app-config";
 
 import "./index.scss";
 
@@ -15,6 +16,7 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const store = useEWarrantyFromStore();
+    const appConfigStore = useAppConfigStore();
 
     const display = ref(false);
     const status = ref();
@@ -22,6 +24,7 @@ export default {
 
     onMounted(() => {
       store.fetchWarranty(warrantyCode);
+      appConfigStore.toggleBreadcrumbHeader(false);
     });
 
     const openDialog = (value) => {
@@ -40,7 +43,6 @@ export default {
     };
 
     const changeStatus = async (status) => {
-
       const response = await eWarrantyApi.changeStatus(warrantyCode, {
         status: status.toUpperCase(),
         companyCode: store.data.companyCode, // @TODO hardcode for testing

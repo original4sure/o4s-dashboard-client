@@ -8,6 +8,9 @@ export default defineConfig({
   server: {
     port: 4005,
   },
+  // build: {
+  //   outDir: "./dist/v2",
+  // },
   base: "/v2/",
   resolve: {
     alias: {

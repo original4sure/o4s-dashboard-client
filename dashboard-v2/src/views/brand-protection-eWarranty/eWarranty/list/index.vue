@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!errorMessage" class="flex flex-col gap-4 px-6">
+  <div v-if="!errorMessage" class="flex flex-col gap-4">
     <div>
       <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
     </div>
