@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!errorMessage" class="flex flex-col gap-4 px-6">
+  <div v-if="!errorMessage" class="flex flex-col gap-4">
     <div>
       <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
     </div>
@@ -24,7 +24,7 @@
         :scrollable="true"
         scrollHeight="calc(100vh - 214px)"
       >
-      <template #empty class="text-center">
+        <template #empty class="text-center">
           <div>
             <O4SText
               oType="sm-normal"
@@ -34,10 +34,7 @@
           </div>
         </template>
         <template #loading>
-          <img
-            src="../../../../assets/loader.gif"
-            style="width: 10rem"
-          />
+          <img src="../../../../assets/loader.gif" style="width: 10rem" />
         </template>
         <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">

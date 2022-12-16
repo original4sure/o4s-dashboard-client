@@ -1,5 +1,5 @@
 <template>
-  <div v-if="formLoaded" class="flex flex-col gap-4 pb-10 px-6">
+  <div v-if="formLoaded" class="flex flex-col gap-4 pb-10">
     <div class="flex flex-row gap-4 items-center">
       <OButton
         icon="pi pi-arrow-left"
@@ -65,11 +65,7 @@
           v-for="{ value, label } in basicDetailData"
           :key="label"
         >
-          <O4SInputText
-            :oLabel="label"
-            :value="value"
-            :disabled="true"
-          />
+          <O4SInputText :oLabel="label" :value="value" :disabled="true" />
         </div>
       </div>
     </div>
@@ -84,11 +80,7 @@
           v-for="{ value, label } in productDetailData"
           :key="label"
         >
-          <O4SInputText
-            :oLabel="label"
-            :value="value"
-            :disabled="true"
-          />
+          <O4SInputText :oLabel="label" :value="value" :disabled="true" />
         </div>
       </div>
     </div>

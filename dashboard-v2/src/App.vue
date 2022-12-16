@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import { RouterView } from "vue-router";
 import { O4SAppMenu } from "o4s-ui";
 import { useAuthUserStore } from "./store/user/auth";
+import { useAppConfigStore } from "./store/app-config";
 import menuobj from "./menu";
 import { removeTokenFromStorage } from "./shared/auth";
 
@@ -17,6 +18,7 @@ watch(route, (route) => {
   }
 });
 const authUserStore = useAuthUserStore();
+const appConfig = useAppConfigStore();
 onMounted(async () => {
   await authUserStore.fetchConfig();
   appMenu.value.routeChange(route);
@@ -38,6 +40,7 @@ const logoutAction = () => {
           user: authUserStore.$state.user,
           company: authUserStore.$state.company,
         }"
+        :config="appConfig.$state.menuConfig"
         @logout="logoutAction"
       >
         <template #app-page>
