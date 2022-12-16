@@ -95,9 +95,9 @@
   </div>
   <div
     v-else
-    class="loader-screen h-96 flex flex-col gap-4 justify-center items-center"
+    class="loader-screen h-96 flex flex-col justify-center items-center"
   >
-    <div class="lds-dual-ring"></div>
+    <img src="../../../../assets/loader.gif" style="width: 10rem" />
     <div><O4SText oType="md-normal" oLabel="Fetching Warranty Details" /></div>
   </div>
   <FormDialog
