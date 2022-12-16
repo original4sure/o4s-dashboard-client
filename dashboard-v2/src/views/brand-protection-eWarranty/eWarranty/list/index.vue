@@ -24,20 +24,15 @@
         :scrollable="true"
         scrollHeight="calc(100vh - 214px)"
       >
-      <template #empty class="text-center">
-          <div>
-            <O4SText
-              oType="sm-normal"
-              oLabel="No warranty requests found"
-              class="o-secondary-900"
-            />
-          </div>
+        <template #empty v-if="!listloading">
+          <O4SText
+            oType="sm-normal"
+            oLabel="No warranty requests found"
+            class="o-secondary-900 empty-message"
+          />
         </template>
         <template #loading>
-          <img
-            src="../../../../assets/loader.gif"
-            style="width: 10rem"
-          />
+          <img src="../../../../assets/loader.gif" style="width: 10rem" />
         </template>
         <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">
