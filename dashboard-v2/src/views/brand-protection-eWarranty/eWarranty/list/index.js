@@ -3,10 +3,13 @@ import { useRouter } from "vue-router";
 import { useEWarrantyListStore } from "@/store/brand-protection-eWarranty/eWarranty";
 import oops from "../../../../assets/oops.gif";
 import { useAppConfigStore } from "@/store/app-config";
-
+import Loader from '@/components/loader/index.vue'
 import "./index.scss";
 
 export default {
+  components: {
+    Loader,
+  },
   setup() {
     const router = useRouter();
     const store = useEWarrantyListStore();

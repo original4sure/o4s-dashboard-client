@@ -5,12 +5,14 @@ import { useEWarrantyFromStore } from "@/store/brand-protection-eWarranty/eWarra
 import FormDialog from "./Dialog.vue";
 import eWarrantyApi from "../../../../api/eWarranty";
 import { useAppConfigStore } from "@/store/app-config";
+import Loader from "@/components/loader/index.vue";
 
 import "./index.scss";
 
 export default {
   components: {
     FormDialog,
+    Loader,
   },
   setup() {
     const router = useRouter();

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getTokenFromStorage } from "../shared/auth";
+
 /** Default config for axios instance */
 let config = {
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/gateway/api/`,
@@ -13,60 +14,37 @@ httpClient.defaults.headers.common[
 ] = `Bearer ${getTokenFromStorage()}`;
 
 const getCall = async (url, payload) => {
-  try {
-    const response = await httpClient.get(url, payload);
-    return successResponseResolver(response);
-  } catch (error) {
-    return errorResponseResolver(error);
-  }
+  return apiCall("get", url, payload);
 };
 
 const postCall = async (url, payload) => {
-  try {
-    const response = await httpClient.post(url, payload);
-    return successResponseResolver(response);
-  } catch (error) {
-    console.log();
-    return errorResponseResolver(error);
-  }
+  return apiCall("post", url, payload);
 };
 
 const putCall = async (url, payload) => {
-  try {
-    const response = await httpClient.put(url, payload);
-    return response;
-  } catch (error) {
-    return error
-      ? { errorCode: error.status, errorMessage: error.statusText }
-      : error;
-  }
+  return apiCall("put", url, payload);
 };
 
 const deleteCall = async (url, payload) => {
-  try {
-    const response = await httpClient.delete(url, payload);
-    return response;
-  } catch (error) {
-    return error
-      ? { errorCode: error.status, errorMessage: error.statusText }
-      : error;
-  }
+  return apiCall("delete", url, payload);
 };
 
 const patchCall = async (url, payload) => {
+  return apiCall("patch", url, payload);
+};
+
+const apiCall = async (method, url, payload) => {
   try {
-    const response = await httpClient.patch(url, payload);
-    return response;
+    const response = await httpClient[method](url, payload);
+    return successResponseResolver(response);
   } catch (error) {
-    return error
-      ? { errorCode: error.status, errorMessage: error.statusText }
-      : error;
+    return errorResponseResolver(error);
   }
 };
 
 const successResponseResolver = function (response) {
   const result = { ...response, ...response?.data };
-  console.log(result);
+  console.log({ successResponseResolver: result });
   return result;
 };
 
@@ -77,7 +55,7 @@ const errorResponseResolver = function (error) {
     message: error?.response?.data?.message || error?.message,
     error,
   };
-  console.log(result);
+  console.log({ errorResponseResolver: result });
   return result;
 };
 

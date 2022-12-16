@@ -32,7 +32,7 @@
           />
         </template>
         <template #loading>
-          <img src="../../../../assets/loader.gif" style="width: 10rem" />
+          <Loader />
         </template>
         <OColumn field="customerName" header="Customer Details">
           <template #body="{ data }">

@@ -89,7 +89,7 @@
     v-else
     class="loader-screen h-96 flex flex-col justify-center items-center"
   >
-    <img src="../../../../assets/loader.gif" style="width: 10rem" />
+    <Loader />
     <div><O4SText oType="md-normal" oLabel="Fetching Warranty Details" /></div>
   </div>
   <FormDialog
