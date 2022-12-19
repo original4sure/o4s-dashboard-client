@@ -8,6 +8,7 @@ const fetchEWarrantyList = async (
   sortByPurchasedOn = null
 ) => {
   try {
+    console.log("L11", pageSize, pageNumber, status, sortByLastUpdated, sortByPurchasedOn)
     const fetchEWarrantyListUrl = `/consumer/warranty/list`;
     const eWarrantyList = await postCall(fetchEWarrantyListUrl, {
       pageNumber: pageNumber,
