@@ -72,6 +72,14 @@
                 :oLabel="data.sku.code"
                 class="o-secondary-500"
               />
+              <div class="flex">
+                <O4SText
+                oType="sm-normal"
+                :oLabel="'UID: ' + data.productId"
+                class="o-secondary-500"
+              />
+              </div>
+
             </div>
           </template>
         </OColumn>
@@ -93,30 +101,32 @@
             />
           </template>
         </OColumn>
-        <OColumn field="lastUpdatedOn" header="Last Updated" :sortable="true">
+        <OColumn field="status" header="Status" headerStyle="text-align: center">
           <template #body="{ data }">
-            <O4SText
-              oType="sm-normal"
-              :oLabel="data.lastUpdatedOn"
-              class="o-secondary-500"
-            />
-          </template>
-        </OColumn>
-        <OColumn field="status" header="Status" class="">
-          <template #body="{ data }">
-            <OTag
-              v-if="data.status == 'Rejected'"
-              :oLabel="data.status"
-              severity="danger"
-            />
+            <div class="flex flex-col">
+              <div>
+                <OTag
+                  v-if="data.status == 'Rejected'"
+                  :oLabel="data.status"
+                  severity="danger"
+                />
+                <OTag
+                  v-else-if="data.status == 'Approved'"
+                  :oLabel="data.status"
+                  severity="success"
+                />
+                <OTag v-else oLabel="Pending" severity="warning" />
+              </div>
 
-            <OTag
-              v-else-if="data.status == 'Approved'"
-              :oLabel="data.status"
-              severity="success"
-            />
+              <div>
+                <O4SText
+                oType="xs-normal"
+                :oLabel="data.lastUpdatedOn"
+                class="o-secondary-500"
+              />
+            </div>
 
-            <OTag v-else :oLabel="data.status" severity="warning" />
+            </div>
           </template>
         </OColumn>
       </ODataTable>

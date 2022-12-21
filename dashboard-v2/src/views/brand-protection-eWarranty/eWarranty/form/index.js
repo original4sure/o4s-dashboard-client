@@ -47,6 +47,8 @@ export default {
         facilityName,
         batchId,
         ownership,
+        warrantyEndDate,
+        status
       } = response?.data?.data || {};
   
       basicDetailData.value = [
@@ -106,6 +108,16 @@ export default {
           value: manufacturingDate
             ? DateTime.fromMillis(manufacturingDate).toFormat("dd LLL, yyyy")
             : "NA",
+        },
+        {
+          label: "Valid Through",
+          value: warrantyEndDate
+            ? DateTime.fromMillis(+warrantyEndDate).toFormat("dd LLL, yyyy")
+            : "NA",
+        },
+        {
+          label: "Status",
+          value: status,
         }
       ];
   

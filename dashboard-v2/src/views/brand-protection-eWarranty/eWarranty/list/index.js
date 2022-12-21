@@ -70,6 +70,7 @@ export default {
             status: _.capitalize(item.status),
             warrantyCode: item.warrantyCode,
             sku: item.sku,
+            productId: item.productId
           };
         });
         totalCount.value = result.totalCount;
