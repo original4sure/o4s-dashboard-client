@@ -52,9 +52,11 @@
         <div>Basic Details</div>
         <div>
           <OButton
+            icon="pi pi-download"
+            iconPos="right"
             label="Preview Invoice"
             oType="primary"
-            @click="openLinkInNewTab(data.invoiceLink)"
+            @click="downloadFileFromUrl(data.invoiceLink, 'invoice')"
           />
         </div>
       </div>

@@ -5,6 +5,7 @@ import eWarrantyApi from "@/api/eWarranty";
 import { useAppConfigStore } from "@/store/app-config";
 import { DateTime } from "luxon";
 import Loader from "@/components/loader/index.vue";
+import { downloadFileFromUrl } from "../../../../utils/common/index";
 import "./index.scss";
 
 export default {
@@ -17,7 +18,7 @@ export default {
     const route = useRoute();
     const appConfigStore = useAppConfigStore();
 
-     //states
+    //states
     const display = ref(false);
     const status = ref();
     let basicDetailData = ref([]);
@@ -31,7 +32,7 @@ export default {
       formLoaded.value = false;
       const response = await eWarrantyApi.fetchWarranty(payload);
       data.value = response?.data?.data;
-  
+
       const {
         sku,
         userName,
@@ -48,9 +49,9 @@ export default {
         batchId,
         ownership,
         warrantyEndDate,
-        status
+        status,
       } = response?.data?.data || {};
-  
+
       basicDetailData.value = [
         {
           label: "Mobile",
@@ -71,7 +72,9 @@ export default {
         {
           label: "Requested On",
           value: activationRequestDate
-            ? DateTime.fromMillis(activationRequestDate).toFormat("dd LLL, yyyy")
+            ? DateTime.fromMillis(activationRequestDate).toFormat(
+                "dd LLL, yyyy"
+              )
             : "NA",
         },
         {
@@ -85,7 +88,7 @@ export default {
           value: invoiceNumber ?? "NA",
         },
       ];
-  
+
       productDetailData.value = [
         {
           label: "Serial Number",
@@ -118,9 +121,9 @@ export default {
         {
           label: "Status",
           value: status,
-        }
+        },
       ];
-  
+
       formLoaded.value = true;
     };
 
@@ -131,12 +134,6 @@ export default {
 
     const redirectTolistScreen = () => {
       router.push("/brand-protection-eWarranty/eWarranty/list");
-    };
-
-    const openLinkInNewTab = (url, target = "_blank") => {
-      if (url) {
-        window.open(url, target, "noreferrer");
-      }
     };
 
     const changeStatus = async (status) => {
@@ -161,10 +158,10 @@ export default {
       productDetailData,
       formLoaded,
       data,
-      openLinkInNewTab,
       display,
       status,
       changeStatus,
+      downloadFileFromUrl,
     };
   },
 };

@@ -26,19 +26,56 @@ export function debounce(func, wait, immediate = false) {
 }
 
 /**
- * 
- * @param {*} text 
- * @returns 
+ *
+ * @param {*} text
+ * @returns
  */
 export const kebabCase = (text) => {
   return text.replace(NON_WORD_UNDERSCORE, "-");
 };
 
 /**
- * 
- * @param {*} text 
- * @returns 
+ *
+ * @param {*} text
+ * @returns
  */
 export const snakeCase = (text) => {
   return text.replace(NON_WORD_UNDERSCORE, "_");
+};
+
+/**
+ * File download from url
+ * @param {*} url
+ * @param {*} name
+ */
+export const downloadFileFromUrl = (url, name) => {
+  fetch(url)
+    .then((res) => res.blob())
+    .then((file) => {
+      const tempUrl = URL.createObjectURL(file);
+
+      const a = Object.assign(document.createElement("a"), {
+        href: tempUrl,
+        style: "display:none",
+        download: name,
+      });
+
+      a.download = name ? name : url.replace(/^.*[\\\/]/, "");
+
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(tempUrl);
+      a.remove();
+    });
+};
+
+/**
+ *
+ * @param {*} url
+ * @param {*} target
+ */
+export const openLinkInNewTab = (url, target = "_blank") => {
+  if (url) {
+    window.open(url, target, "noreferrer");
+  }
 };
