@@ -10,6 +10,7 @@
  * @returns
  */
 export function debounce(func, wait, immediate = false) {
+  console.log(wait)
   let timeout;
   return function () {
     var vm = this;

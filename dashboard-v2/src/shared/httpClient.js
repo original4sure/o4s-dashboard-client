@@ -18,6 +18,7 @@ const getCall = async (url, payload) => {
 };
 
 const postCall = async (url, payload) => {
+  console.log("postCall")
   return apiCall("post", url, payload);
 };
 

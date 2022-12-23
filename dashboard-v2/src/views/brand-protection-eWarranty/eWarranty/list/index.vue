@@ -1,10 +1,20 @@
 <template>
   <div v-if="!errorMessage" class="flex flex-col gap-4">
-    <div>
-      <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
-    </div>
-    <div>
-      <OButtonGroup v-model="selectedStatus" :options="options" />
+    <div class="flex justify-between items-center">
+      <div class="w-2/4">
+        <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
+      </div>
+      <div class="flex items-center justify-end gap-5 w-2/4">
+        <O4SInputSearch v-model="searchKeywords" oRightIcon="pi pi-search" placeholder="Search via phone no or unique Id or Invoice" class="w-2/4"/>
+        <OButton
+          label="Filter"
+          oType="outline"
+          oColor="primary"
+          icon="pi pi-filter"
+          @click="handleFilter"
+        />
+      </div>
+
     </div>
     <div class="h-full">
       <ODataTable
@@ -101,7 +111,7 @@
             />
           </template>
         </OColumn>
-        <OColumn field="status" header="Status" headerStyle="text-align: center">
+        <OColumn field="status" header="Status" headerStyle="justify-content: center;" bodyStyle="justify-content: center; text-align: center">
           <template #body="{ data }">
             <div class="flex flex-col">
               <div>
@@ -118,19 +128,23 @@
                 <OTag v-else oLabel="Pending" severity="warning" />
               </div>
 
-              <div>
+              <div v-tooltip.bottom="'Last Updated On'">
                 <O4SText
                 oType="xs-normal"
                 :oLabel="data.lastUpdatedOn"
                 class="o-secondary-500"
-              />
-            </div>
+                />
+              </div>
 
             </div>
           </template>
         </OColumn>
       </ODataTable>
     </div>
+    <Filter 
+    @applyFilter="applyFilter"
+    v-model:visible="showFilter"
+    />
   </div>
   <ApiError v-else :errorMessage="errorMessage" />
 </template>

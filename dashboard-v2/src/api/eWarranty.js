@@ -1,25 +1,24 @@
 import { httpClient, postCall } from "../shared/httpClient";
 
-const fetchEWarrantyList = async (
-  pageSize,
-  pageNumber,
-  status,
-  sortByLastUpdated = null,
-  sortByPurchasedOn = null
-) => {
+const fetchEWarrantyList = async ({pageNumber, pageSize, filters, sorts}) => {
   try {
-    console.log("L11", pageSize, pageNumber, status, sortByLastUpdated, sortByPurchasedOn)
     const fetchEWarrantyListUrl = `/consumer/warranty/list`;
+
+    console.log("Shailendra", pageNumber, pageSize, filters, sorts)
     const eWarrantyList = await postCall(fetchEWarrantyListUrl, {
       pageNumber: pageNumber,
       pageSize: pageSize,
       filters: {
-        status: status,
+          purchasedOn: {
+              startTimestamp: filters.purchasedOn.startTimestamp,
+              endTimestamp: filters.purchasedOn.endTimestamp,
+          },
+          identity : filters.identity,
+          status: filters.status
       },
       sorts: {
-        updatedAt: sortByLastUpdated,
-        "warrantyData.purchasedOn": sortByPurchasedOn,
-      },
+          "warrantyData.purchasedOn": sorts["warrantyData.purchasedOn"]
+      }
     });
     return eWarrantyList;
   } catch (error) {
