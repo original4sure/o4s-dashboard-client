@@ -3,8 +3,6 @@ import { httpClient, postCall } from "../shared/httpClient";
 const fetchEWarrantyList = async ({pageNumber, pageSize, filters, sorts}) => {
   try {
     const fetchEWarrantyListUrl = `/consumer/warranty/list`;
-
-    console.log("Shailendra", pageNumber, pageSize, filters, sorts)
     const eWarrantyList = await postCall(fetchEWarrantyListUrl, {
       pageNumber: pageNumber,
       pageSize: pageSize,

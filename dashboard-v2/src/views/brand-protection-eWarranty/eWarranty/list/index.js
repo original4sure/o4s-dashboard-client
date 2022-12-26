@@ -8,7 +8,7 @@ import eWarrantyApi from "@/api/eWarranty";
 import _ from "lodash";
 import { DateTime } from "luxon";
 import Filter from "./Filter.vue"
-import { debounce } from '../../../../utils/common'
+import { debounce } from '@/utils/common'
 
 export default {
   components: {
@@ -46,7 +46,7 @@ export default {
                 startTimestamp: purchasedOnFilter.value.startTimestamp,
                 endTimestamp: purchasedOnFilter.value.endTimestamp
             },
-            identity : searchKeywords.value,
+            identity : null,
             status: selectedStatus.value ? selectedStatus.value : ""
         },
         sorts: {
@@ -56,10 +56,10 @@ export default {
     })
     
     //api function
-    const fetchEWarrantyRequests = async function () {
+    const fetchEWarrantyRequests = async function (payload) {
       listloading.value = true;
 
-      const response = await eWarrantyApi.fetchEWarrantyList(payload.value);
+      const response = await eWarrantyApi.fetchEWarrantyList(payload);
       
       if (response.success) {
         const result = response.data;
@@ -132,6 +132,24 @@ export default {
     watch(payload, () => {
       fetchEWarrantyRequests(payload.value)
     })
+
+    watch(searchKeywords, debounce(function(){
+      fetchEWarrantyRequests({
+        pageNumber: pageNumber.value,
+        pageSize: rowPerPage.value,
+        filters: {
+            purchasedOn: {
+                startTimestamp: purchasedOnFilter.value.startTimestamp,
+                endTimestamp: purchasedOnFilter.value.endTimestamp
+            },
+            identity : searchKeywords.value,
+            status: selectedStatus.value ? selectedStatus.value : ""
+        },
+        sorts: {
+            "warrantyData.purchasedOn": sortByPurchasedOn.value
+        }
+      })
+    }, 500))
 
     return {
       selectedStatus,
