@@ -13,7 +13,7 @@ const menu = [
     label: "Dashboard v2",
     path: "/",
     visible: false,
-    redirect: { name: "BrandProtectionAndEWarranty-eWarranty-list" },
+    redirect: { name: "E-Warranty" },
   },
   { ...ewarranty },
 ];
