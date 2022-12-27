@@ -1,5 +1,5 @@
 import { addDefaultAppMenus } from "o4s-ui/utils";
-import ewarranty from "./ewarranty";
+import ewarranty from "./eWarranty";
 
 const menu = [
   {
