@@ -30,8 +30,8 @@ export default {
 
     const fetchWarranty = async function (payload) {
       formLoaded.value = false;
-      const response = await eWarrantyApi.fetchWarranty(payload);
-      data.value = response?.data?.data;
+      const response = await eWarrantyApi.fetchWarrantyApi(payload);
+      data.value = response.data;
 
       const {
         sku,
@@ -50,7 +50,7 @@ export default {
         ownership,
         warrantyEndDate,
         status,
-      } = response?.data?.data || {};
+      } = response.data || {};
 
       basicDetailData.value = [
         {
@@ -137,12 +137,12 @@ export default {
     };
 
     const changeStatus = async (status) => {
-      const response = await eWarrantyApi.changeStatus(warrantyCode, {
+      const response = await eWarrantyApi.changeStatusApi(warrantyCode, {
         status: status.toUpperCase(),
         companyCode: data.companyCode, // @TODO hardcode for testing
       });
 
-      if (response?.data?.success) {
+      if (response?.success) {
         openDialog(status);
       }
     };

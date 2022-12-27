@@ -9,6 +9,7 @@ import _ from "lodash";
 import { DateTime } from "luxon";
 import Filter from "./Filter.vue"
 import { debounce } from '@/utils/common'
+import { getFormatedDate } from '@/utils/dateTime'
 
 export default {
   components: {
@@ -59,7 +60,7 @@ export default {
     const fetchEWarrantyRequests = async function (payload) {
       listloading.value = true;
 
-      const response = await eWarrantyApi.fetchEWarrantyList(payload);
+      const response = await eWarrantyApi.fetchEWarrantyListApi(payload);
       
       if (response.success) {
         const result = response.data;
@@ -69,12 +70,8 @@ export default {
             inVoiceNo: item.invoiceNumber,
             mobileNumber: item.userPhoneNumber,
             purchaseFrom: item.purchasedFrom,
-            purchasedOn: item.purchaseDate ? DateTime.fromMillis(item.purchaseDate).toFormat(
-              "LLL dd, yyyy"
-            ) : "NA",
-            lastUpdatedOn: item.lastUpdatedOn ? DateTime.fromMillis(item.lastUpdatedOn).toLocaleString(
-              DateTime.DATETIME_MED
-            ) : "NA",
+            purchasedOn: item.purchaseDate ? getFormatedDate(item.purchaseDate) : "NA",
+            lastUpdatedOn: item.lastUpdatedOn ? getFormatedDate(item.lastUpdatedOn, "amPm") : "NA",
             status: _.capitalize(item.status),
             warrantyCode: item.warrantyCode,
             sku: item.sku,
@@ -97,7 +94,6 @@ export default {
     }
 
     function applyFilter(filter){
-      console.log(filter)
       purchasedOnFilter.value.startTimestamp = filter.purchasedOn.startTimestamp
       purchasedOnFilter.value.endTimestamp = filter.purchasedOn.endTimestamp
       selectedStatus.value = filter.status
@@ -115,7 +111,6 @@ export default {
     }
 
     function resetFilter(){
-      console.log('reseting')
       purchasedOnFilter.value.startTimestamp = null
       purchasedOnFilter.value.endTimestamp = null
     }

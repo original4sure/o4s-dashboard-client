@@ -13,23 +13,23 @@ httpClient.defaults.headers.common[
   "Authorization"
 ] = `Bearer ${getTokenFromStorage()}`;
 
-const getCall = async (url, payload) => {
+const Get = async (url, payload) => {
   return apiCall("get", url, payload);
 };
 
-const postCall = async (url, payload) => {
+const Post = async (url, payload) => {
   return apiCall("post", url, payload);
 };
 
-const putCall = async (url, payload) => {
+const Put = async (url, payload) => {
   return apiCall("put", url, payload);
 };
 
-const deleteCall = async (url, payload) => {
+const Delete = async (url, payload) => {
   return apiCall("delete", url, payload);
 };
 
-const patchCall = async (url, payload) => {
+const Patch = async (url, payload) => {
   return apiCall("patch", url, payload);
 };
 
@@ -59,4 +59,4 @@ const errorResponseResolver = function (error) {
   return result;
 };
 
-export { httpClient, getCall, postCall, putCall, patchCall, deleteCall };
+export { httpClient, Get, Post, Put, Patch, Delete };
