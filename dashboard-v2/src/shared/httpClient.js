@@ -59,4 +59,4 @@ const errorResponseResolver = function (error) {
   return result;
 };
 
-export { httpClient, Get, Post, Put, Patch, Delete };
+export { Get, Post, Put, Patch, Delete };

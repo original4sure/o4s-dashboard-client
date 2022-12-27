@@ -18,6 +18,7 @@
         optionLabel="label"
         placeholder="Select a Status"
       />
+      <br/>
       <O4SInputCalendar
         oLabel="Purchased On"
         v-model="date"

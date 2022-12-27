@@ -1,15 +1,14 @@
-import { onMounted, computed, ref, watch, reactive } from "vue";
+import { onMounted, computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useAppConfigStore } from "@/store/app-config";
-import Loader from "@/components/loader/index.vue";
-import ApiError from "@/components/apiError/index.vue";
+import { debounce } from "@/utils/common";
+import { getFormattedDate } from "@/utils/dateTime";
 import "./index.scss";
 import eWarrantyApi from "@/api/eWarranty";
 import _ from "lodash";
-import { DateTime } from "luxon";
 import Filter from "./Filter.vue";
-import { debounce } from "@/utils/common";
-import { getFormatedDate } from "@/utils/dateTime";
+import Loader from "@/components/loader/index.vue";
+import ApiError from "@/components/apiError/index.vue";
 
 export default {
   components: {
@@ -71,10 +70,10 @@ export default {
             mobileNumber: item.userPhoneNumber,
             purchaseFrom: item.purchasedFrom,
             purchasedOn: item.purchaseDate
-              ? getFormatedDate(item.purchaseDate)
+              ? getFormattedDate(item.purchaseDate)
               : "NA",
             lastUpdatedOn: item.lastUpdatedOn
-              ? getFormatedDate(item.lastUpdatedOn, "amPm")
+              ? getFormattedDate(item.lastUpdatedOn, "amPm")
               : "NA",
             status: _.capitalize(item.status),
             warrantyCode: item.warrantyCode,

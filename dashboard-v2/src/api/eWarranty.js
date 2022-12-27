@@ -1,21 +1,21 @@
-import { httpClient, Get, Post, Put } from "../shared/httpClient";
+import { Get, Post, Put } from "../shared/httpClient";
 
 const fetchEWarrantyListApi = async (payload) => {
   const fetchEWarrantyListUrl = `/consumer/warranty/list`;
-  const eWarrantyList = await Post(fetchEWarrantyListUrl, payload);
-  return eWarrantyList;
+  const response = await Post(fetchEWarrantyListUrl, payload);
+  return response;
 };
 
 const fetchWarrantyApi = async (warrantyCode) => {
   const fetchWarrantyUrl = `/consumer/warranty?code=${warrantyCode}`;
-  const eWarranty = await Get(fetchWarrantyUrl);
-  return eWarranty;
+  const response = await Get(fetchWarrantyUrl);
+  return response;
 };
 
 const changeStatusApi = async (warrantyCode, payload) => {
   const url = `/consumer/warranty?code=${warrantyCode}`;
-  const result = await Put(url, payload);
-  return result;
+  const response = await Put(url, payload);
+  return response;
 };
 
 export default {
