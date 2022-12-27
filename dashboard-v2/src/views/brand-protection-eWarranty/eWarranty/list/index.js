@@ -7,21 +7,21 @@ import "./index.scss";
 import eWarrantyApi from "@/api/eWarranty";
 import _ from "lodash";
 import { DateTime } from "luxon";
-import Filter from "./Filter.vue"
-import { debounce } from '@/utils/common'
-import { getFormatedDate } from '@/utils/dateTime'
+import Filter from "./Filter.vue";
+import { debounce } from "@/utils/common";
+import { getFormatedDate } from "@/utils/dateTime";
 
 export default {
   components: {
     Loader,
     ApiError,
-    Filter
+    Filter,
   },
   setup() {
     const router = useRouter();
     const appConfigStore = useAppConfigStore();
 
-     //states
+    //states
     let sortByPurchasedOn = ref(null);
     let selectedWarranty = ref({});
     let warrantyList = ref([]);
@@ -29,39 +29,39 @@ export default {
     let totalCount = ref(0);
     let listloading = ref(false);
     let pageNumber = ref(0);
-    let showFilter = ref(false)
+    let showFilter = ref(false);
     let errorMessage = ref("");
     let searchKeywords = ref(null);
     let purchasedOnFilter = ref({
-        startTimestamp: null,
-        endTimestamp: null
-    })
+      startTimestamp: null,
+      endTimestamp: null,
+    });
     let selectedStatus = ref("");
 
-    const payload = computed(()=>{
+    const payload = computed(() => {
       return {
         pageNumber: pageNumber.value,
         pageSize: rowPerPage.value,
         filters: {
-            purchasedOn: {
-                startTimestamp: purchasedOnFilter.value.startTimestamp,
-                endTimestamp: purchasedOnFilter.value.endTimestamp
-            },
-            identity : null,
-            status: selectedStatus.value ? selectedStatus.value : ""
+          purchasedOn: {
+            startTimestamp: purchasedOnFilter.value.startTimestamp,
+            endTimestamp: purchasedOnFilter.value.endTimestamp,
+          },
+          identity: searchKeywords.value,
+          status: selectedStatus.value ? selectedStatus.value : "",
         },
         sorts: {
-            "warrantyData.purchasedOn": sortByPurchasedOn.value
-        }
-      }
-    })
-    
+          "warrantyData.purchasedOn": sortByPurchasedOn.value,
+        },
+      };
+    });
+
     //api function
     const fetchEWarrantyRequests = async function (payload) {
       listloading.value = true;
 
       const response = await eWarrantyApi.fetchEWarrantyListApi(payload);
-      
+
       if (response.success) {
         const result = response.data;
         warrantyList.value = result.list.map((item) => {
@@ -70,12 +70,16 @@ export default {
             inVoiceNo: item.invoiceNumber,
             mobileNumber: item.userPhoneNumber,
             purchaseFrom: item.purchasedFrom,
-            purchasedOn: item.purchaseDate ? getFormatedDate(item.purchaseDate) : "NA",
-            lastUpdatedOn: item.lastUpdatedOn ? getFormatedDate(item.lastUpdatedOn, "amPm") : "NA",
+            purchasedOn: item.purchaseDate
+              ? getFormatedDate(item.purchaseDate)
+              : "NA",
+            lastUpdatedOn: item.lastUpdatedOn
+              ? getFormatedDate(item.lastUpdatedOn, "amPm")
+              : "NA",
             status: _.capitalize(item.status),
             warrantyCode: item.warrantyCode,
             sku: item.sku,
-            productId: item.productId
+            productId: item.productId,
           };
         });
         totalCount.value = result.totalCount;
@@ -87,64 +91,53 @@ export default {
 
     function handleRequestDetails(warrantyCode) {
       router.push("/brand-protection-eWarranty/eWarranty/form/" + warrantyCode);
-    };
-
-    function handleFilter(){
-      showFilter.value = !showFilter.value
     }
 
-    function applyFilter(filter){
-      purchasedOnFilter.value.startTimestamp = filter.purchasedOn.startTimestamp
-      purchasedOnFilter.value.endTimestamp = filter.purchasedOn.endTimestamp
-      selectedStatus.value = filter.status
-      handleFilter()
+    function handleFilter() {
+      showFilter.value = !showFilter.value;
+    }
+
+    function applyFilter(filter) {
+      purchasedOnFilter.value.startTimestamp =
+        filter.purchasedOn.startTimestamp;
+      purchasedOnFilter.value.endTimestamp = filter.purchasedOn.endTimestamp;
+      selectedStatus.value = filter.status;
+      handleFilter();
     }
 
     function onPage(event) {
-      pageNumber.value = event.page
-      rowPerPage.value = event.rows
+      pageNumber.value = event.page;
+      rowPerPage.value = event.rows;
     }
 
     function onSort(event) {
       sortByPurchasedOn.value = event.sortOrder;
-      pageNumber.value = 0
+      pageNumber.value = 0;
     }
 
-    function resetFilter(){
-      purchasedOnFilter.value.startTimestamp = null
-      purchasedOnFilter.value.endTimestamp = null
+    function onSearch(event) {
+      debounce(function () {
+        searchKeywords.value = event.target.value;
+      }, 500)();
     }
+
+    function resetFilter() {
+      purchasedOnFilter.value.startTimestamp = null;
+      purchasedOnFilter.value.endTimestamp = null;
+    }
+
+    watch(selectedWarranty, () => {
+      handleRequestDetails(selectedWarranty.value.warrantyCode);
+    });
+
+    watch(payload, () => {
+      fetchEWarrantyRequests(payload.value);
+    });
 
     onMounted(() => {
       fetchEWarrantyRequests(payload.value);
       appConfigStore.toggleBreadcrumbHeader(true);
     });
-
-    watch(selectedWarranty, (newValue, oldValue) => {
-      handleRequestDetails(newValue.warrantyCode);
-    });
-
-    watch(payload, () => {
-      fetchEWarrantyRequests(payload.value)
-    })
-
-    watch(searchKeywords, debounce(function(){
-      fetchEWarrantyRequests({
-        pageNumber: pageNumber.value,
-        pageSize: rowPerPage.value,
-        filters: {
-            purchasedOn: {
-                startTimestamp: purchasedOnFilter.value.startTimestamp,
-                endTimestamp: purchasedOnFilter.value.endTimestamp
-            },
-            identity : searchKeywords.value,
-            status: selectedStatus.value ? selectedStatus.value : ""
-        },
-        sorts: {
-            "warrantyData.purchasedOn": sortByPurchasedOn.value
-        }
-      })
-    }, 500))
 
     return {
       selectedStatus,
@@ -161,7 +154,8 @@ export default {
       handleRequestDetails,
       handleFilter,
       onPage,
-      onSort
+      onSort,
+      onSearch,
     };
   },
 };

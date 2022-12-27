@@ -5,7 +5,13 @@
         <O4SText oType="display-xs-normal" oLabel="E-Warranty" />
       </div>
       <div class="flex items-center justify-end gap-5 w-2/4">
-        <O4SInputSearch v-model="searchKeywords" oRightIcon="pi pi-search" placeholder="Search via phone no or unique Id or Invoice" class="w-2/4"/>
+        <O4SInputSearch
+          :value="searchKeywords"
+          @input="onSearch($event)"
+          oRightIcon="pi pi-search"
+          placeholder="Search via phone no or unique Id or Invoice"
+          class="w-2/4"
+        />
         <OButton
           label="Filter"
           oType="outline"
@@ -14,7 +20,6 @@
           @click="handleFilter"
         />
       </div>
-
     </div>
     <div class="h-full">
       <ODataTable
@@ -84,12 +89,11 @@
               />
               <div class="flex">
                 <O4SText
-                oType="sm-normal"
-                :oLabel="'UID: ' + data.productId"
-                class="o-secondary-500"
-              />
+                  oType="sm-normal"
+                  :oLabel="'UID: ' + data.productId"
+                  class="o-secondary-500"
+                />
               </div>
-
             </div>
           </template>
         </OColumn>
@@ -111,7 +115,12 @@
             />
           </template>
         </OColumn>
-        <OColumn field="status" header="Status" headerStyle="justify-content: center;" bodyStyle="justify-content: center; text-align: center">
+        <OColumn
+          field="status"
+          header="Status"
+          headerStyle="justify-content: center;"
+          bodyStyle="justify-content: center; text-align: center"
+        >
           <template #body="{ data }">
             <div class="flex flex-col">
               <div>
@@ -130,21 +139,17 @@
 
               <div v-tooltip.bottom="'Last Updated On'">
                 <O4SText
-                oType="xs-normal"
-                :oLabel="data.lastUpdatedOn"
-                class="o-secondary-500"
+                  oType="xs-normal"
+                  :oLabel="data.lastUpdatedOn"
+                  class="o-secondary-500"
                 />
               </div>
-
             </div>
           </template>
         </OColumn>
       </ODataTable>
     </div>
-    <Filter 
-    @applyFilter="applyFilter"
-    v-model:visible="showFilter"
-    />
+    <Filter @applyFilter="applyFilter" v-model:visible="showFilter" />
   </div>
   <ApiError v-else :errorMessage="errorMessage" />
 </template>
