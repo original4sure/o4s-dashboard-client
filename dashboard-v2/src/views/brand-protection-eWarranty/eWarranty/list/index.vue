@@ -74,7 +74,7 @@
             />
           </template>
         </OColumn>
-        <OColumn field="sku" header="SKU">
+        <OColumn field="sku" header="SKU" style="flex: 0 0 18rem">
           <template #body="{ data }">
             <div class="flex flex-col gap-2">
               <div class="flex gap-1">
