@@ -49,7 +49,7 @@
         <template #loading>
           <Loader />
         </template>
-        <OColumn field="customerName" header="Customer Details">
+        <OColumn field="customerName" header="Customer Details" style="flex: 0 0 15%">
           <template #body="{ data }">
             <div class="flex flex-col">
               <O4SText
@@ -65,7 +65,7 @@
             </div>
           </template>
         </OColumn>
-        <OColumn field="inVoiceNo" header="Invoice No">
+        <OColumn field="inVoiceNo" header="Invoice No" style="flex: 0 0 10%">
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"
@@ -74,7 +74,7 @@
             />
           </template>
         </OColumn>
-        <OColumn field="sku" header="SKU" style="flex: 0 0 18rem">
+        <OColumn field="sku" header="SKU" style="flex: 0 0 27%">
           <template #body="{ data }">
             <div class="flex flex-col gap-2">
               <div class="flex gap-1">
@@ -116,7 +116,7 @@
             </div>
           </template>
         </OColumn>
-        <OColumn field="purchaseFrom" header="Purchased From">
+        <OColumn field="purchaseFrom" header="Purchased From" style="flex: 0 0 16%">
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"
@@ -125,7 +125,7 @@
             />
           </template>
         </OColumn>
-        <OColumn field="purchasedOn" :sortable="true" header="Purchased On">
+        <OColumn field="purchasedOn" :sortable="true" header="Purchased On" style="flex: 0 0 16%">
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"
@@ -139,6 +139,7 @@
           header="Status"
           headerStyle="justify-content: center;"
           bodyStyle="justify-content: center; text-align: center"
+          style="flex: 0 0 16%"
         >
           <template #body="{ data }">
             <div class="flex flex-col">
