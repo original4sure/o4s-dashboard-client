@@ -10,7 +10,7 @@
           @input="onSearch($event)"
           oRightIcon="pi pi-search"
           placeholder="Search via phone no or unique Id"
-          class="w-2/4"
+          class="w-2/3"
         />
         <OButton
           label="Filter"
