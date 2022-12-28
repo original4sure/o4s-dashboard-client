@@ -14,7 +14,7 @@
         />
         <OButton
           label="Filter"
-          oType="outline"
+          oType="secondary"
           oColor="primary"
           icon="pi pi-filter"
           @click="handleFilter"
