@@ -49,7 +49,11 @@
         <template #loading>
           <Loader />
         </template>
-        <OColumn field="customerName" header="Customer Details" style="flex: 0 0 15%">
+        <OColumn
+          field="customerName"
+          header="Customer Details"
+          style="flex: 0 0 15%"
+        >
           <template #body="{ data }">
             <div class="flex flex-col">
               <O4SText
@@ -116,7 +120,11 @@
             </div>
           </template>
         </OColumn>
-        <OColumn field="purchaseFrom" header="Purchased From" style="flex: 0 0 16%">
+        <OColumn
+          field="purchaseFrom"
+          header="Purchased From"
+          style="flex: 0 0 16%"
+        >
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"
@@ -125,7 +133,12 @@
             />
           </template>
         </OColumn>
-        <OColumn field="purchasedOn" :sortable="true" header="Purchased On" style="flex: 0 0 16%">
+        <OColumn
+          field="purchasedOn"
+          :sortable="true"
+          header="Purchased On"
+          style="flex: 0 0 16%"
+        >
           <template #body="{ data }">
             <O4SText
               oType="sm-normal"

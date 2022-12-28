@@ -49,7 +49,7 @@ export default {
           },
           identity: searchKeywords.value,
           status: selectedStatus.value ? selectedStatus.value : "",
-          "warrantyData.invoice": invoiceNumber.value
+          "warrantyData.invoice": invoiceNumber.value,
         },
         sorts: {
           "warrantyData.purchasedOn": sortByPurchasedOn.value,
@@ -99,7 +99,8 @@ export default {
     }
 
     function applyFilter(filter) {
-      purchasedOnFilter.value.startTimestamp = filter.purchasedOn.startTimestamp;
+      purchasedOnFilter.value.startTimestamp =
+        filter.purchasedOn.startTimestamp;
       purchasedOnFilter.value.endTimestamp = filter.purchasedOn.endTimestamp;
       selectedStatus.value = filter.status;
       invoiceNumber.value = filter.invoice;

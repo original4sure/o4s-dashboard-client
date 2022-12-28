@@ -35,9 +35,17 @@
       />
       <div>
         <ODivider />
-        <O4SText oType="sm-normal" oLabel="Total Filter Selected: " class="o-secondary-700"/> <O4SText oType="sm-normal" :oLabel="totalFilters" class="o-secondary-700 o-bg-secondary-100 px-1 rounded"/>
+        <O4SText
+          oType="sm-normal"
+          oLabel="Total Filter Selected: "
+          class="o-secondary-700"
+        />
+        <O4SText
+          oType="sm-normal"
+          :oLabel="totalFilters"
+          class="o-secondary-700 o-bg-secondary-100 px-1 rounded"
+        />
       </div>
-      
     </div>
     <template #footer>
       <div class="flex justify-between">
@@ -121,20 +129,20 @@ let status = ref(null);
 let date = ref(null);
 let invoiceNumber = ref(null);
 
-let totalFilters = computed(()=>{
-  let count = 0
-  if(status.value){
-      count += 1 
+let totalFilters = computed(() => {
+  let count = 0;
+  if (status.value) {
+    count += 1;
   }
-  if(date.value){
-    count += 1 
+  if (date.value) {
+    count += 1;
   }
-  if(invoiceNumber.value){
-    count += 1
+  if (invoiceNumber.value) {
+    count += 1;
   }
 
-  return count.toString()
-})
+  return count.toString();
+});
 
 let filterObject = computed(() => {
   return {
@@ -159,7 +167,6 @@ function resetFilter() {
   date.value = null;
   status.value = null;
   invoiceNumber.value = null;
-
 }
 
 const props = defineProps(["display", "redirectTolistScreen", "status"]);
