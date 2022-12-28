@@ -10,7 +10,7 @@
     :style="{ width: '25vw', height: '100vh' }"
     dismissableMask
   >
-    <div class="h-screen">
+    <div class="h-screen flex flex-col gap-3">
       <O4SDropdown
         oLabel="Status"
         v-model="status"
@@ -18,7 +18,6 @@
         optionLabel="label"
         placeholder="Select a Status"
       />
-      <br/>
       <O4SInputCalendar
         oLabel="Purchased On"
         v-model="date"
@@ -27,7 +26,18 @@
         showOtherMonths
         :showIcon="true"
         :showOnFocus="false"
+        placeholder="Enter Purchased On"
       />
+      <O4SInputSearch
+        oLabel="Invoice No"
+        v-model="invoiceNumber"
+        placeholder="Enter Invoice Number"
+      />
+      <div>
+        <ODivider />
+        <O4SText oType="sm-normal" oLabel="Total Filter Selected: " class="o-secondary-700"/> <O4SText oType="sm-normal" :oLabel="totalFilters" class="o-secondary-700 o-bg-secondary-100 px-1 rounded"/>
+      </div>
+      
     </div>
     <template #footer>
       <div class="flex justify-between">
@@ -109,6 +119,22 @@ import { getUnixTimeStamp } from "@/utils/dateTime";
 
 let status = ref(null);
 let date = ref(null);
+let invoiceNumber = ref(null);
+
+let totalFilters = computed(()=>{
+  let count = 0
+  if(status.value){
+      count += 1 
+  }
+  if(date.value){
+    count += 1 
+  }
+  if(invoiceNumber.value){
+    count += 1
+  }
+
+  return count.toString()
+})
 
 let filterObject = computed(() => {
   return {
@@ -118,6 +144,7 @@ let filterObject = computed(() => {
         ? getUnixTimeStamp(date.value[1]) + 86400000
         : null,
     },
+    invoice: invoiceNumber.value ? invoiceNumber.value : null,
     status: status.value ? status.value.value : null,
   };
 });
@@ -131,6 +158,8 @@ let options = [
 function resetFilter() {
   date.value = null;
   status.value = null;
+  invoiceNumber.value = null;
+
 }
 
 const props = defineProps(["display", "redirectTolistScreen", "status"]);

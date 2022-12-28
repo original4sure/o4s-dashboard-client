@@ -35,6 +35,7 @@ export default {
       startTimestamp: null,
       endTimestamp: null,
     });
+    let invoiceNumber = ref(null);
     let selectedStatus = ref("");
 
     const payload = computed(() => {
@@ -48,6 +49,7 @@ export default {
           },
           identity: searchKeywords.value,
           status: selectedStatus.value ? selectedStatus.value : "",
+          "warrantyData.invoice": invoiceNumber.value
         },
         sorts: {
           "warrantyData.purchasedOn": sortByPurchasedOn.value,
@@ -78,7 +80,7 @@ export default {
             status: _.capitalize(item.status),
             warrantyCode: item.warrantyCode,
             sku: item.sku,
-            productId: item.productId,
+            productId: item.productId ? item.productId.toString() : "NA",
           };
         });
         totalCount.value = result.totalCount;
@@ -97,10 +99,10 @@ export default {
     }
 
     function applyFilter(filter) {
-      purchasedOnFilter.value.startTimestamp =
-        filter.purchasedOn.startTimestamp;
+      purchasedOnFilter.value.startTimestamp = filter.purchasedOn.startTimestamp;
       purchasedOnFilter.value.endTimestamp = filter.purchasedOn.endTimestamp;
       selectedStatus.value = filter.status;
+      invoiceNumber.value = filter.invoice;
       handleFilter();
     }
 
@@ -139,7 +141,6 @@ export default {
     });
 
     return {
-      selectedStatus,
       selectedWarranty,
       errorMessage,
       warrantyList,

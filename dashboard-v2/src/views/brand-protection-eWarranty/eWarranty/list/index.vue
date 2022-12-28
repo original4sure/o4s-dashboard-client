@@ -9,7 +9,7 @@
           :value="searchKeywords"
           @input="onSearch($event)"
           oRightIcon="pi pi-search"
-          placeholder="Search via phone no or unique Id or Invoice"
+          placeholder="Search via phone no or unique Id"
           class="w-2/4"
         />
         <OButton
@@ -76,21 +76,40 @@
         </OColumn>
         <OColumn field="sku" header="SKU">
           <template #body="{ data }">
-            <div class="flex flex-col">
-              <O4SText
-                oType="sm-normal"
-                :oLabel="data.sku.name"
-                class="o-secondary-500"
-              />
-              <O4SText
-                oType="sm-normal"
-                :oLabel="data.sku.code"
-                class="o-secondary-500"
-              />
-              <div class="flex">
+            <div class="flex flex-col gap-2">
+              <div class="flex gap-1">
                 <O4SText
                   oType="sm-normal"
-                  :oLabel="'UID: ' + data.productId"
+                  :oLabel="'SKU: '"
+                  class="o-secondary-700 o-bg-secondary-100 px-1 rounded"
+                />
+                <O4SText
+                  oType="sm-normal"
+                  :oLabel="data.sku.code"
+                  class="o-secondary-500"
+                />
+              </div>
+              <div class="flex gap-1">
+                <O4SText
+                  oType="sm-normal"
+                  :oLabel="'SKU Name: '"
+                  class="o-secondary-700 o-bg-secondary-100 px-1 rounded"
+                />
+                <O4SText
+                  oType="sm-normal"
+                  :oLabel="data.sku.name"
+                  class="o-secondary-700"
+                />
+              </div>
+              <div class="flex gap-1">
+                <O4SText
+                  oType="sm-normal"
+                  :oLabel="'UID: '"
+                  class="o-secondary-700 o-bg-secondary-100 px-1 rounded"
+                />
+                <O4SText
+                  oType="sm-normal"
+                  :oLabel="data.productId"
                   class="o-secondary-500"
                 />
               </div>
