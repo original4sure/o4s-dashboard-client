@@ -1,6 +1,4 @@
 <template>
-  <Card  type="download"/>
+  <Card type="download" />
 </template>
-<script setup>
-import Card from "./components/card.vue";
-</script>
+<script src="./index.js" />
