@@ -15,6 +15,15 @@ const menu = [
     visible: false,
     redirect: { name: "E-Warranty" },
   },
+  {
+    // @TODO will remove 
+    name: "notification",
+    label: "Notification",
+    path: "/notify",
+    exact: true,
+    visible: true,
+    component: () => import("@/views/notificationPanel/index.vue"),
+  },
   { ...ewarranty },
 ];
 
