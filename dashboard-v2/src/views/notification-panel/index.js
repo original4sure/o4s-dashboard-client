@@ -1,6 +1,7 @@
-import { computed, onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
 import { fetchJobList } from "../../api/utillity";
 import Card from "./components/card.vue";
+import "./index.scss";
 
 export default {
   components: { Card },
