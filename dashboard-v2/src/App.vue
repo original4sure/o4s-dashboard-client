@@ -7,6 +7,7 @@ import { useAuthUserStore } from "./store/user/auth";
 import { useAppConfigStore } from "./store/app-config";
 import menuobj from "./menu";
 import { removeTokenFromStorage } from "./shared/auth";
+import Notification from './views/notification-panel/index.vue'
 
 const menu = reactive(menuobj);
 const appMenu = ref(null);
@@ -28,11 +29,24 @@ const logoutAction = () => {
   removeTokenFromStorage();
   window.location.replace("/");
 };
+
+let showNotification = ref(false);
+
+function handleNotification() {
+  showNotification.value = !showNotification.value;
+}
 </script>
 
 <template>
   <div>
     <div v-if="authUserStore.$state.isUserLoggedin">
+      <OButton
+        label=""
+        oType="secondary"
+        oColor="primary"
+        icon="pi pi-bell"
+        @click="handleNotification"
+      />
       <O4SAppMenu
         v-model="menu"
         ref="appMenu"
@@ -47,6 +61,8 @@ const logoutAction = () => {
           <RouterView />
         </template>
       </O4SAppMenu>
+
+      <Notification v-model:visible="showNotification" />
     </div>
     <div v-else>
       <div

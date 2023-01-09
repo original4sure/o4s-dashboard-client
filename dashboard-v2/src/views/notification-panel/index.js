@@ -1,4 +1,4 @@
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { fetchJobList } from "../../api/utillity";
 import Card from "./components/card.vue";
 
