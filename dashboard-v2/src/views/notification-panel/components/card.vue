@@ -3,27 +3,30 @@
     <span class="pr-3 o-text o-secondary-500">
       <i class="pi oi oi-ft-file" style="font-size: 2rem"></i>
     </span>
-
-    <div>
-      <O4SText class="pb-1.5" :oLabel="type" oType="xs-semibold" />
+    <div class="w-full">
+      <O4SText class="pb-1.5" :oLabel="data.csvName" oType="xs-semibold" />
       <br />
       <O4SText
-        :oLabel="`Distributor-list92.csv file was ${type} successfully.`"
+        :oLabel="`${data.csvName} file was ${type} successfully.`"
         oType="xs-normal"
       />
       <div class="pb-3 pt-1.5">
         <OTag
           class="mr-2.5"
-          oLabel="Failed: 01"
+          :oLabel="`Failed: ${data.failed}`"
           severity="danger"
           :rounded="false"
         />
-        <OTag oLabel="Success: 01" :rounded="false" severity="success" />
+        <OTag
+          :oLabel="`Success: ${data.success}`"
+          :rounded="false"
+          severity="success"
+        />
       </div>
 
       <div class="flex justify-between items-center">
         <O4SText
-          :oLabel="`2 min ago`"
+          :oLabel="data.elapsedTimeFromNow"
           oType="xs-normal"
           class="o-text o-secondary-500"
         />
@@ -31,18 +34,14 @@
           <i class="pi oi oi-ft-download" style="font-size: 2rem"></i>
         </span>
       </div>
+      {{ props }}
     </div>
   </div>
 </template>
 
 <script setup>
 import { computed } from "vue";
-
-const props = defineProps(["type"]);
-const display = computed(() => props.type);
-
-const type = props.type;
-console.log(display, "adsf");
+const { type, data } = defineProps(["type", "data"]);
 </script>
 
 <style>

@@ -62,7 +62,7 @@ function handleNotification() {
         </template>
       </O4SAppMenu>
 
-      <Notification v-model:visible="showNotification" />
+      <Notification v-if="showNotification" v-model:visible="showNotification" />
     </div>
     <div v-else>
       <div
