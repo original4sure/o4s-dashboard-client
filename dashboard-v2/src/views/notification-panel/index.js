@@ -1,5 +1,5 @@
 import { computed, onMounted, ref, watch } from "vue";
-import { fetchJobList } from "../../api/utillity";
+import { fetchJobListApi } from "../../api/utillity";
 import { getFormattedDate } from "../../utils/dateTime";
 import Card from "./components/card.vue";
 import "./index.scss";
@@ -25,7 +25,7 @@ export default {
       loading.value = false;
 
       const payload = { kind: selectJobType.value.toUpperCase() };
-      const response = await fetchJobList(payload);
+      const response = await fetchJobListApi(payload);
 
       makeData(response.data);
       loading.value = true;

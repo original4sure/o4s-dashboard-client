@@ -12,6 +12,11 @@
           placeholder="Search via phone no or unique Id"
           class="w-2/3"
         />
+        <DataDownloadButton
+          title="ewarranty data download"
+          :tags="dataDownloadJobTag"
+          :jobType="dataDownloadJobType"
+        />
         <OButton
           label="Filter"
           oType="secondary"

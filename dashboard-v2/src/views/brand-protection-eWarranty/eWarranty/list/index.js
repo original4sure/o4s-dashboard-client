@@ -9,12 +9,15 @@ import _ from "lodash";
 import Filter from "./Filter.vue";
 import Loader from "@/components/loader/index.vue";
 import ApiError from "@/components/apiError/index.vue";
+import DataDownloadButton from "@/components/DataDownloadButton/index.vue";
+import { DOWNLOAD_JOB_TAGS, DOWNLOAD_JOB_TYPES } from "../../../../constants/downloadJobTypesAndTags";
 
 export default {
   components: {
     Loader,
     ApiError,
     Filter,
+    DataDownloadButton,
   },
   setup() {
     const router = useRouter();
@@ -157,6 +160,8 @@ export default {
       onPage,
       onSort,
       onSearch,
+      dataDownloadJobType: DOWNLOAD_JOB_TYPES.DOWNLOAD_CONSUMER_SCAN_LOG,
+      dataDownloadJobTag: [DOWNLOAD_JOB_TAGS.CONSUMER_LOGS],
     };
   },
 };
