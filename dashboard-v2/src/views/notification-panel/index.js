@@ -16,14 +16,17 @@ export default {
     let loading = ref(false);
     let list = ref({});
     let selectJobType = ref("upload");
-    let timeoutId = undefined;
     let notificationVisiblity = ref(false);
+
+    let timeoutId = undefined;
 
     //Api calling
     const fetchData = async function () {
       loading.value = false;
+
       const payload = { kind: selectJobType.value.toUpperCase() };
       const response = await fetchJobList(payload);
+
       makeData(response.data);
       loading.value = true;
     };
@@ -91,9 +94,7 @@ export default {
           return {
             csvName: dataSource.fileName || "******.csv",
             // requestDate: getDateShort2(moment.unix(job.createdAt / 1000)),
-            requestDate: createdAt,
             tags,
-            jobId,
             success: totalSuccess || 0,
             failed: getFailedCount(),
             progressState,
