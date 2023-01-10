@@ -32,31 +32,79 @@ export default {
       console.log(value, "ASDF");
       list.value = value.list
         .map((job) => {
-          let jobRowState = job.state;
-          let tags = job.tags;
-          let progressState = job.status;
-          let dataSource = job.dataSource || {};
-          let reportUrl = (job.output && job.output.reportUrl) || undefined;
+          const {
+            state: { totalRecords, totalSuccess, totalProcessed },
+            status: progressState,
+            dataSource,
+            output: { reportUrl },
+            createdAt,
+            tags,
+            jobId,
+          } = job;
+
+          function getFailedCount() {
+            const count = Number(totalRecords || 0) - Number(totalSuccess || 0);
+            return count > 0 ? count : 0;
+          }
+
+          function showState() {
+            if (progressState === "IN_PROGRESS") {
+              return {
+                status: true,
+                type: "progressBar",
+                label: "In Progress",
+                value: (totalProcessed * 100) / totalRecords || 0,
+              };
+            }
+
+            if (progressState === "PENDING" || progressState === "INGESTING") {
+              return {
+                status: true,
+                type: "spinner",
+                label: "Initiating",
+              };
+            }
+
+            if (progressState === "REPORTING") {
+              return {
+                status: true,
+                type: "spinner",
+                label: "Generating Report",
+              };
+            }
+          }
+
+          function showDownloadButton() {
+            if (progressState == "PARTIALLY_COMPLETED") {
+              return true;
+            }
+
+            if (
+              selectJobType.value == "download" &&
+              progressState == "COMPLETED"
+            ) {
+              return true;
+            }
+
+            return false;
+          }
+
           return {
             csvName: dataSource.fileName || "******.csv",
             // requestDate: getDateShort2(moment.unix(job.createdAt / 1000)),
-            requestDate: job.createdAt,
-
-            totalRows: jobRowState && jobRowState.totalRecords,
+            requestDate: createdAt,
             tags,
-            jobId: job.jobId,
-            rowsProcessed: jobRowState && jobRowState.totalProcessed,
-            success: jobRowState?.totalSuccess || 0,
-            failed:
-              Number(jobRowState?.totalRecords || 0) -
-              Number(jobRowState?.totalSuccess || 0),
+            jobId,
+            success: totalSuccess || 0,
+            failed: getFailedCount(),
             progressState,
             // elapsedTimeFromNow: moment(job.createdAt).from(new Date()),
-            elapsedTimeFromNow: getFormattedDate(job.createdAt),
-            key: job.jobId || Date.now() + Date.now(),
+            elapsedTimeFromNow: getFormattedDate(createdAt),
+            key: jobId || Date.now() + Date.now(),
             reportUrl,
-            jobCreatedAt: job.createdAt,
-            showDownloadButton: showDownloadButton(job.status),
+            jobCreatedAt: createdAt,
+            showDownloadButton: showDownloadButton(),
+            showState: showState(),
           };
         })
         .sort((a, b) => {
@@ -68,18 +116,6 @@ export default {
       });
 
       fetchData();
-    };
-
-    const showDownloadButton = (status) => {
-      if (selectJobType == "upload" && status == "SUCCESS") {
-        return false;
-      }
-
-      if (selectJobType == "download" && status == "FAILED") {
-        return false;
-      }
-
-      return true;
     };
 
     const handleJobType = (type) => {
