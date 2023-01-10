@@ -31,10 +31,11 @@
           class="o-text o-secondary-500"
         />
         <span class="text-right o-text o-primary-500">
-          <i class="pi oi oi-ft-download" style="font-size: 2rem"></i>
+          <a :href="`${data.reportUrl}`" download target="_blank">
+            <i class="pi oi oi-ft-download" style="font-size: 2rem"></i>
+          </a>
         </span>
       </div>
-      {{ props }}
     </div>
   </div>
 </template>

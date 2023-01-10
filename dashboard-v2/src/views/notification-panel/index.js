@@ -1,4 +1,4 @@
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { fetchJobList } from "../../api/utillity";
 import { getFormattedDate } from "../../utils/dateTime";
 import Card from "./components/card.vue";
@@ -6,10 +6,18 @@ import "./index.scss";
 
 export default {
   components: { Card },
-  setup() {
+  props: {
+    showNotification: {
+      type: [Boolean],
+      required: true,
+    },
+  },
+  setup(props) {
     let loading = ref(false);
     let list = ref({});
     let selectJobType = ref("upload");
+    let timeoutId = undefined;
+    let notificationVisiblity = ref(false);
 
     //Api calling
     const fetchData = async function () {
@@ -29,7 +37,6 @@ export default {
           let progressState = job.status;
           let dataSource = job.dataSource || {};
           let reportUrl = (job.output && job.output.reportUrl) || undefined;
-          console.log({ source: dataSource.fileName });
           return {
             csvName: dataSource.fileName || "******.csv",
             // requestDate: getDateShort2(moment.unix(job.createdAt / 1000)),
@@ -49,17 +56,30 @@ export default {
             key: job.jobId || Date.now() + Date.now(),
             reportUrl,
             jobCreatedAt: job.createdAt,
+            showDownloadButton: showDownloadButton(job.status),
           };
         })
         .sort((a, b) => {
           return b.jobCreatedAt - a.jobCreatedAt;
         });
 
-      // await new Promise((resolve) => {
-      //   this.timeoutId = setTimeout(resolve, 5000);
-      // });
+      await new Promise((resolve) => {
+        timeoutId = setTimeout(resolve, 5000);
+      });
 
-      // this.pollData();
+      fetchData();
+    };
+
+    const showDownloadButton = (status) => {
+      if (selectJobType == "upload" && status == "SUCCESS") {
+        return false;
+      }
+
+      if (selectJobType == "download" && status == "FAILED") {
+        return false;
+      }
+
+      return true;
     };
 
     const handleJobType = (type) => {
@@ -67,9 +87,20 @@ export default {
       fetchData();
     };
 
-    onMounted(() => {
-      fetchData();
-    });
+    watch(
+      () => props.showNotification,
+      (showNotification) => {
+        notificationVisiblity.value = showNotification;
+        if (notificationVisiblity.value) {
+          fetchData();
+        } else {
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+        }
+      },
+      { immediate: true, deep: true }
+    );
 
     return { list, loading, handleJobType, selectJobType };
   },

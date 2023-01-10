@@ -7,7 +7,7 @@ import { useAuthUserStore } from "./store/user/auth";
 import { useAppConfigStore } from "./store/app-config";
 import menuobj from "./menu";
 import { removeTokenFromStorage } from "./shared/auth";
-import Notification from './views/notification-panel/index.vue'
+import Notification from "./views/notification-panel/index.vue";
 
 const menu = reactive(menuobj);
 const appMenu = ref(null);
@@ -62,7 +62,10 @@ function handleNotification() {
         </template>
       </O4SAppMenu>
 
-      <Notification v-if="showNotification" v-model:visible="showNotification" />
+      <Notification
+        :showNotification="showNotification"
+        v-model:visible="showNotification"
+      />
     </div>
     <div v-else>
       <div
