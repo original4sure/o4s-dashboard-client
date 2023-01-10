@@ -23,6 +23,11 @@
           oColor="primary"
           @click="handleJobType('download')"
         />
+
+        <OTabView>
+          <OTabPanel header="Header I"> Upload </OTabPanel>
+          <OTabPanel header="Header II"> Download </OTabPanel>
+        </OTabView>
       </div>
       <div v-for="data in list" :key="data.key">
         <Card :type="selectJobType" :data="data" />

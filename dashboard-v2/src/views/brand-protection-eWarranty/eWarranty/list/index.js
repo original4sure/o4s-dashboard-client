@@ -10,7 +10,10 @@ import Filter from "./Filter.vue";
 import Loader from "@/components/loader/index.vue";
 import ApiError from "@/components/apiError/index.vue";
 import DataDownloadButton from "@/components/DataDownloadButton/index.vue";
-import { DOWNLOAD_JOB_TAGS, DOWNLOAD_JOB_TYPES } from "../../../../constants/downloadJobTypesAndTags";
+import {
+  DOWNLOAD_JOB_TAGS,
+  DOWNLOAD_JOB_TYPES,
+} from "../../../../constants/downloadJobTypesAndTags";
 
 export default {
   components: {
@@ -40,6 +43,7 @@ export default {
     });
     let invoiceNumber = ref(null);
     let selectedStatus = ref("");
+    let filterObject = ref({});
 
     const payload = computed(() => {
       return {
@@ -102,11 +106,13 @@ export default {
     }
 
     function applyFilter(filter) {
+      filterObject.value = {};
       purchasedOnFilter.value.startTimestamp =
         filter.purchasedOn.startTimestamp;
       purchasedOnFilter.value.endTimestamp = filter.purchasedOn.endTimestamp;
       selectedStatus.value = filter.status;
       invoiceNumber.value = filter.invoice;
+      filterObject.value = filter;
       handleFilter();
     }
 
@@ -160,8 +166,9 @@ export default {
       onPage,
       onSort,
       onSearch,
-      dataDownloadJobType: DOWNLOAD_JOB_TYPES.DOWNLOAD_CONSUMER_SCAN_LOG,
-      dataDownloadJobTag: [DOWNLOAD_JOB_TAGS.CONSUMER_LOGS],
+      filterObject,
+      dataDownloadJobType: DOWNLOAD_JOB_TYPES.DOWNLOAD_WARRANTY,
+      dataDownloadJobTag: [DOWNLOAD_JOB_TAGS.WARRANTY_LOGS],
     };
   },
 };

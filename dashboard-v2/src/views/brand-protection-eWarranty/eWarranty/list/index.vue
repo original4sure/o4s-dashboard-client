@@ -16,6 +16,7 @@
           title="ewarranty data download"
           :tags="dataDownloadJobTag"
           :jobType="dataDownloadJobType"
+          :filters="filterObject"
         />
         <OButton
           label="Filter"
