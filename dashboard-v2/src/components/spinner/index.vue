@@ -19,8 +19,6 @@
 
 <script setup>
 const props = defineProps(["type"]);
-
-console.log("Spinner");
 </script>
 
 <style lang="scss" scoped>

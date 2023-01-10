@@ -44,7 +44,6 @@ const apiCall = async (method, url, payload) => {
 
 const successResponseResolver = function (response) {
   const result = { ...response, ...response?.data };
-  console.log({ successResponseResolver: result });
   return result;
 };
 
@@ -55,7 +54,6 @@ const errorResponseResolver = function (error) {
     message: error?.response?.data?.message || error?.message,
     error,
   };
-  console.log({ errorResponseResolver: result });
   return result;
 };
 

@@ -29,7 +29,6 @@ export default {
     };
 
     const makeData = async (value) => {
-      console.log(value, "ASDF");
       list.value = value.list
         .map((job) => {
           const {
