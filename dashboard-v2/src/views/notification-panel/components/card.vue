@@ -19,8 +19,8 @@
             ><Spinner :type="'macos'"> </Spinner
           ></span>
 
-          <span v-if="data.showState?.type == 'progressBar'"></span>
-          <ProgressBar :value="data.showState?.value" :showValue="false" />
+          <!-- <span v-if="data.showState?.type == 'progressBar'"></span>
+          <ProgressBar :value="data.showState?.value" :showValue="false" /> -->
         </div>
 
         <div v-else>
